@@ -97,8 +97,8 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 
-app.listen(PORT, () => {
-  console.log(`Tax API server running on http://localhost:${PORT}`);
+app.listen(Number(PORT), '0.0.0.0', () => {
+  console.log(`Tax API server running on http://0.0.0.0:${PORT}`);
 });
 
 export default app;
