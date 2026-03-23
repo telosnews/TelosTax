@@ -74,7 +74,7 @@ const EIN = /\b\d{2}[-]\d{7}\b/g;
  * Starts with a number, then street words, then common suffix.
  */
 const STREET_ADDRESS =
-  /\b\d{1,6}\s+[A-Za-z]+(?:\s+[A-Za-z]+){0,3}\s+(?:st(?:reet)?|ave(?:nue)?|blvd|boulevard|dr(?:ive)?|ln|lane|rd|road|ct|court|pl(?:ace)?|way|cir(?:cle)?|pkwy|parkway|ter(?:race)?|trl|trail|loop|hwy|highway|run|pass|xing|crossing)\b\.?(?:\s+(?:apt|suite|ste|unit|#)\s*[A-Za-z0-9-]+)?/gi;
+  /\b\d{1,6}\s+[A-Za-z]+(?:\s+[A-Za-z]+){0,3}\s+(?:st(?:reet)?|ave(?:nue)?|blvd|boulevard|dr(?:ive)?|ln|lane|rd|road|ct|court|pl(?:ace)?|way|cir(?:cle)?|pkwy|parkway|ter(?:race)?|trl|trail|loop|hwy|highway|run|pass|xing|crossing|sq(?:uare)?|commons?|row|al(?:ley)?|mews|plaza|plz|esplanade|walk|path|pike|spur|crescent|cres|glen|knoll|ridge|view|meadow|grove|isle|landing|point|bay|bend|cove|heights?|manor|garden|pond|shore|spring|summit|valley)\b\.?(?:\s+(?:apt|suite|ste|unit|#|fl(?:oor)?|rm|room|bldg|building)\s*\.?\s*[A-Za-z0-9-]+)?/gi;
 
 /**
  * ZIP codes (standalone 5-digit or ZIP+4).
