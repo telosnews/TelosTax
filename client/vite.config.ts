@@ -9,7 +9,7 @@ function cspPlugin(): Plugin {
     transformIndexHtml: {
       order: 'pre',
       handler(html, ctx) {
-        const apiOrigin = process.env.VITE_API_ORIGIN || '';
+        const apiOrigin = process.env.VITE_API_ORIGIN || process.env.VITE_API_BASE || '';
         // In dev mode, allow localhost:3001; in production, only 'self' + optional API origin
         const connectSrc = ctx.server
           ? "'self' http://localhost:3001"
