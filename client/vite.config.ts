@@ -64,7 +64,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024, // 8 MB — Syncfusion PDF viewer + charts
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MB — Syncfusion PDF viewer + charts (merged chunk)
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
       },
     }),
@@ -78,8 +78,6 @@ export default defineConfig({
             '@syncfusion/ej2-base',
             '@syncfusion/ej2-react-charts',
             '@syncfusion/ej2-react-circulargauge',
-          ],
-          'syncfusion-pdf': [
             '@syncfusion/ej2-react-pdfviewer',
             '@syncfusion/ej2-pdfviewer',
             '@syncfusion/ej2-pdf',
