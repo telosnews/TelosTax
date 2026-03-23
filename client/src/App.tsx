@@ -37,20 +37,29 @@ export default function App() {
     }
   }, []);
 
-  // ─── Lock when tab becomes hidden (switch tab / minimize) ───
+  // ─── Lock after tab is hidden for 30 seconds (switch tab / minimize) ───
+  const hiddenTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     if (appState !== 'unlocked') return;
     const handleVisibility = () => {
       if (document.visibilityState === 'hidden' && isEncryptionSetup()) {
-        lock();
-        clearReturnCache();
-        useAISettingsStore.getState().clearDecryptedKey();
-        useDeductionFinderStore.getState().clearDecryptedState?.();
-        setAppState('lock-unlock');
+        hiddenTimerRef.current = setTimeout(() => {
+          lock();
+          clearReturnCache();
+          useAISettingsStore.getState().clearDecryptedKey();
+          useDeductionFinderStore.getState().clearDecryptedState?.();
+          setAppState('lock-unlock');
+        }, 30_000); // 30 seconds — enough to switch tabs without losing session
+      } else if (hiddenTimerRef.current) {
+        clearTimeout(hiddenTimerRef.current);
+        hiddenTimerRef.current = null;
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
-    return () => document.removeEventListener('visibilitychange', handleVisibility);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility);
+      if (hiddenTimerRef.current) clearTimeout(hiddenTimerRef.current);
+    };
   }, [appState]);
 
   // ─── Auto-lock on inactivity ───
