@@ -1,0 +1,32 @@
+# shared/authorities/schedule1A.yaml
+module: schedule1A.ts
+functions:
+  calculateSchedule1A:
+    authorities:
+      - type: statute
+        section: "OBBBA Section 101"
+        description: "No Tax on Tips: above-the-line deduction for cash and charged tips for eligible workers"
+        weight: binding
+      - type: statute
+        section: "OBBBA Section 102"
+        description: "No Tax on Overtime: above-the-line deduction for overtime pay exceeding 40 hours per week"
+        weight: binding
+      - type: statute
+        section: "OBBBA Section 103"
+        description: "Car Loan Interest: above-the-line deduction for interest on auto loans for domestically manufactured vehicles"
+        weight: binding
+      - type: statute
+        section: "OBBBA Section 104"
+        description: "Enhanced Senior Standard Deduction: additional standard deduction amount for taxpayers age 65+"
+        weight: binding
+      - type: form
+        reference: "Schedule 1-A (Form 1040)"
+        weight: explanatory
+    scope: "Computes above-the-line deductions introduced by the One Big Beautiful Bill Act including tip income exclusion, overtime pay exclusion, auto loan interest deduction, and enhanced senior deduction"
+    limitations:
+      - "OBBBA provisions are new legislation; IRS guidance and regulations may not yet be finalized"
+      - "Tip income exclusion eligibility criteria (occupation, income limits) may require further regulatory guidance"
+      - "Overtime deduction computation depends on employer-reported data; verification not modeled"
+      - "Auto loan interest deduction domestic manufacture requirement not validated"
+      - "Enhanced senior deduction interaction with existing age-65+ standard deduction add-on must be coordinated"
+      - "Effective dates and phase-in periods per OBBBA must be verified"

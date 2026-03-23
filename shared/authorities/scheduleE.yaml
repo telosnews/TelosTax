@@ -1,0 +1,23 @@
+# shared/authorities/scheduleE.yaml
+module: scheduleE.ts
+functions:
+  calculateScheduleE:
+    authorities:
+      - type: IRC
+        section: "469"
+        description: "Passive activity loss rules: losses from passive activities only deductible against passive income"
+        weight: binding
+      - type: IRC
+        section: "469(i)"
+        description: "Special $25,000 allowance for active participation in rental real estate activities; phases out between $100,000-$150,000 MAGI"
+        weight: binding
+      - type: form
+        reference: "Schedule E (Form 1040), Part I"
+        weight: explanatory
+    scope: "Computes rental income/loss from real estate activities, applies passive activity loss limitations including the $25,000 rental allowance"
+    limitations:
+      - "Does not handle real estate professional exception under IRC 469(c)(7)"
+      - "Does not handle material participation tests for non-rental activities"
+      - "Suspended passive losses from prior years must be provided as input"
+      - "Parts II-IV of Schedule E (partnerships, S corps, estates/trusts) handled via k1.ts"
+      - "Does not handle grouping elections under Reg 1.469-4"

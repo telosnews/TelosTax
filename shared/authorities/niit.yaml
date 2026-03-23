@@ -1,0 +1,18 @@
+# shared/authorities/niit.yaml
+module: niit.ts
+functions:
+  calculateNIIT:
+    authorities:
+      - type: IRC
+        section: "1411"
+        description: "Net Investment Income Tax of 3.8% on lesser of NII or excess MAGI over threshold ($200k single, $250k MFJ)"
+        weight: binding
+      - type: form
+        reference: "Form 8960"
+        weight: explanatory
+    scope: "Computes the 3.8% Net Investment Income Tax on the lesser of net investment income or the excess of MAGI over the applicable threshold"
+    limitations:
+      - "MAGI thresholds are not indexed for inflation"
+      - "Does not decompose net investment income into component categories (interest, dividends, rents, etc.)"
+      - "Does not handle NII adjustments for self-charged interest or trading income"
+      - "Does not handle nonresident alien exceptions"

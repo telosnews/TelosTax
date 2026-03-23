@@ -1,0 +1,25 @@
+# shared/authorities/scheduleSE.yaml
+module: scheduleSE.ts
+functions:
+  calculateScheduleSE:
+    authorities:
+      - type: IRC
+        section: "1401(a)-(b)"
+        description: "Self-employment tax rates: 12.4% Social Security and 2.9% Medicare"
+        weight: binding
+      - type: IRC
+        section: "1402(a)"
+        description: "Definition of net earnings from self-employment; 92.35% multiplier"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3"
+        description: "Social Security wage base for 2025: $176,100"
+        weight: binding
+      - type: form
+        reference: "Schedule SE (Form 1040), Lines 4a-12"
+        weight: explanatory
+    scope: "Computes self-employment tax (Social Security and Medicare) on net SE earnings and the corresponding above-the-line deduction for the employer-equivalent portion"
+    limitations:
+      - "Does not handle optional methods for self-employment tax (farm or non-farm)"
+      - "Does not handle church employee income subject to SE tax"
+      - "Additional Medicare Tax (0.9%) handled separately by additionalMedicare.ts"

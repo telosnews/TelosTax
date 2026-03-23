@@ -1,0 +1,24 @@
+# shared/authorities/socialSecurity.yaml
+module: socialSecurity.ts
+functions:
+  calculateTaxableSocialSecurity:
+    authorities:
+      - type: IRC
+        section: "86"
+        description: "Taxation of Social Security benefits: up to 50% taxable if provisional income exceeds $25,000 (single) / $32,000 (MFJ); up to 85% taxable if exceeds $34,000 (single) / $44,000 (MFJ)"
+        weight: binding
+      - type: IRC
+        section: "86(c)(1)(C)(ii)"
+        description: "MFS filers who lived apart from spouse for entire taxable year use Single thresholds instead of $0 MFS base amount"
+        weight: binding
+      - type: publication
+        reference: "Publication 915"
+        weight: explanatory
+      - type: form
+        reference: "Social Security Benefits Worksheet (Form 1040 Instructions)"
+        weight: explanatory
+    scope: "Determines the taxable portion (0%, up to 50%, or up to 85%) of Social Security benefits based on provisional income"
+    limitations:
+      - "Provisional income thresholds are not indexed for inflation"
+      - "Does not handle lump-sum election under IRC 86(e)"
+      - "Does not handle repayment of benefits in current year"

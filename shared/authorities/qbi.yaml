@@ -1,0 +1,23 @@
+# shared/authorities/qbi.yaml
+module: qbi.ts
+functions:
+  calculateQBIDeduction:
+    authorities:
+      - type: IRC
+        section: "199A"
+        description: "Qualified Business Income deduction of up to 20% of QBI; subject to W-2 wages/UBIA limits and specified service trade or business (SSTB) restrictions above income thresholds"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3.29"
+        description: "Inflation-adjusted income thresholds for QBI deduction phase-in of limitations"
+        weight: binding
+      - type: form
+        reference: "Form 8995 (Simplified) / Form 8995-A (Standard)"
+        weight: explanatory
+    scope: "Computes the Section 199A deduction as the lesser of 20% of QBI (subject to W-2/UBIA limits) or 20% of taxable income before QBI deduction, with SSTB exclusion above thresholds"
+    limitations:
+      - "Does not independently determine SSTB classification; relies on input flag"
+      - "Does not handle QBI loss carryforward from prior years"
+      - "Aggregation of multiple businesses not fully modeled"
+      - "REIT dividends and PTP income components treated as separate buckets but not fully decomposed"
+      - "Deduction sunsets after 2025 under current TCJA provisions unless extended"

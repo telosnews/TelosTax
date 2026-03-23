@@ -1,0 +1,23 @@
+# shared/authorities/hsaForm8889.yaml
+module: hsaForm8889.ts
+functions:
+  calculateHSADeduction:
+    authorities:
+      - type: IRC
+        section: "223"
+        description: "HSA deduction for contributions to Health Savings Account; requires HDHP coverage; above-the-line deduction"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-25"
+        description: "HSA contribution limits for 2025: $4,300 self-only, $8,550 family; catch-up $1,000 (age 55+)"
+        weight: binding
+      - type: form
+        reference: "Form 8889"
+        weight: explanatory
+    scope: "Computes the HSA above-the-line deduction based on HDHP coverage type, contribution limits, employer contributions, and catch-up eligibility"
+    limitations:
+      - "Does not validate HDHP coverage eligibility or months of coverage"
+      - "Pro-rata monthly limitation for partial-year coverage applied but testing period not modeled"
+      - "Employer contributions reduce deductible limit but are not independently verified"
+      - "Last-month rule under IRC 223(b)(2)(B) not fully modeled"
+      - "Excess contribution penalty handled in form5329.ts"

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0F172A"/>
+  <rect x="48" y="48" width="416" height="416" rx="64" fill="#1E293B"/>
+  <!-- Document shape -->
+  <path d="M160 96h128l80 80v240a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V128a32 32 0 0 1 32-32z" fill="#334155"/>
+  <path d="M288 96v48a32 32 0 0 0 32 32h48z" fill="#475569"/>
+  <!-- Dollar sign -->
+  <text x="224" y="330" font-family="Inter, system-ui, sans-serif" font-size="180" font-weight="700" fill="#F37100" text-anchor="middle">$</text>
+  <!-- Checkmark -->
+  <path d="M310 350l30 30 60-60" stroke="#4A96CF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

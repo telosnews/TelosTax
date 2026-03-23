@@ -1,0 +1,38 @@
+# shared/authorities/hsaDistributions.yaml
+module: hsaDistributions.ts
+functions:
+  calculateHSADistribution:
+    authorities:
+      - type: IRC
+        section: "223(f)(2)"
+        description: "HSA distributions for non-qualified expenses included in gross income"
+        weight: binding
+      - type: IRC
+        section: "223(f)(4)"
+        description: "20% additional tax on HSA distributions not used for qualified medical expenses (unless age 65+, disabled, or deceased)"
+        weight: binding
+      - type: form
+        reference: "Form 1099-SA"
+        weight: explanatory
+      - type: form
+        reference: "Form 8889, Part II"
+        weight: explanatory
+    scope: "Computes taxable amount and 20% penalty on HSA distributions not used for qualified medical expenses"
+    limitations:
+      - "Does not validate whether expenses are qualified medical expenses under IRC 213(d)"
+      - "Does not track prior year distribution/expense matching"
+      - "Exception for age 65+ (no penalty, but taxable) applied based on input flag"
+      - "Disability and death exceptions rely on input flags"
+  aggregateHSADistributions:
+    authorities:
+      - type: IRC
+        section: "223(f)"
+        description: "Rules for HSA distributions from multiple accounts"
+        weight: binding
+      - type: form
+        reference: "Form 8889, Part II"
+        weight: explanatory
+    scope: "Aggregates distributions from multiple HSA accounts for unified reporting on Form 8889"
+    limitations:
+      - "Assumes all 1099-SA forms are provided as input"
+      - "Does not handle mistaken distributions returned to HSA"

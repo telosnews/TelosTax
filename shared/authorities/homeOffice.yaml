@@ -1,0 +1,36 @@
+# shared/authorities/homeOffice.yaml
+module: homeOffice.ts
+functions:
+  calculateHomeOfficeDeduction:
+    authorities:
+      - type: IRC
+        section: "280A"
+        description: "Requirements for business use of home deduction: regular and exclusive use as principal place of business"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2013-13"
+        description: "Simplified method allowing $5 per square foot, maximum 300 square feet ($1,500 max)"
+        weight: binding
+      - type: form
+        reference: "Form 8829"
+        weight: explanatory
+    scope: "Computes the home office deduction using either the regular (actual expenses) method or the simplified method"
+    limitations:
+      - "Does not validate regular and exclusive use requirement"
+      - "Carryforward of disallowed expenses under regular method not tracked across years"
+      - "Does not handle daycare facility exception under IRC 280A(c)(4)"
+      - "Employees cannot claim home office deduction under TCJA (2018-2025)"
+  compareHomeOfficeMethods:
+    authorities:
+      - type: IRC
+        section: "280A"
+        description: "Regular method based on actual expenses allocated by business use percentage"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2013-13"
+        description: "Simplified method at $5/sq ft up to 300 sq ft"
+        weight: binding
+    scope: "Compares the regular and simplified home office methods and returns the more beneficial deduction amount"
+    limitations:
+      - "Comparison is for single tax year only; multi-year impact not modeled"
+      - "Depreciation recapture implications of regular method not flagged"

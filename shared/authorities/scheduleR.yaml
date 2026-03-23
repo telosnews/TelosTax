@@ -1,0 +1,27 @@
+# shared/authorities/scheduleR.yaml
+module: scheduleR.ts
+functions:
+  calculateScheduleR:
+    authorities:
+      - type: IRC
+        section: "22"
+        description: "Credit for the elderly and the permanently and totally disabled"
+        weight: binding
+      - type: IRC
+        section: "22(c)(2)"
+        description: "Initial amounts: $5,000 for single/HoH/QSS, $7,500 for MFJ (both qualifying), $3,750 for MFS"
+        weight: binding
+      - type: IRC
+        section: "22(d)"
+        description: "AGI limitation: initial amount reduced by nontaxable Social Security/pensions and by 50% of AGI exceeding $7,500 (single), $10,000 (MFJ), or $5,000 (MFS)"
+        weight: binding
+      - type: form
+        reference: "Schedule R (Form 1040)"
+        weight: explanatory
+    scope: "Computes the nonrefundable Credit for the Elderly or the Disabled by determining the initial amount based on filing status and qualifying persons, reducing by nontaxable Social Security and pension income, then reducing by excess AGI, and applying the 15% credit rate"
+    limitations:
+      - "Does not validate disability certification (physician's statement on Schedule R, Part II)"
+      - "Does not verify age 65 or older qualification; age must be provided as input"
+      - "Nonrefundable; credit cannot exceed tax liability but excess limitation not tracked"
+      - "Mandatory filing requirement for disability claimants under 65 not enforced"
+      - "Does not handle prior-year credit carryback or interaction with other nonrefundable credits"

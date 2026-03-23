@@ -1,0 +1,25 @@
+# shared/authorities/deceasedSpouse.yaml
+module: deceasedSpouse.ts
+functions:
+  validateDeceasedSpouse:
+    authorities:
+      - type: IRC
+        section: "6013(a)(2)"
+        description: "Joint return with deceased spouse for the taxable year in which the death occurred"
+        weight: binding
+      - type: IRC
+        section: "2(a)"
+        description: "Qualifying surviving spouse filing status for 2 taxable years following year of death"
+        weight: binding
+      - type: IRC
+        section: "6013(d)(1)(B)"
+        description: "Executor or administrator may revoke a joint return election made by the surviving spouse"
+        weight: advisory
+      - type: form
+        reference: "Form 1040, Filing Status line"
+        weight: explanatory
+    scope: "Validates MFJ eligibility for year of death and QSS filing status for the 2 subsequent taxable years; non-blocking validation"
+    limitations:
+      - "Does not verify remarriage status or executor consent"
+      - "Relies on user attestation for QSS qualifying child requirement"
+      - "Does not model mid-year income allocation rules (all year-of-death income included)"

@@ -1,0 +1,23 @@
+# shared/authorities/form8606.yaml
+module: form8606.ts
+functions:
+  calculateForm8606:
+    authorities:
+      - type: IRC
+        section: "408(d)(1)-(2)"
+        description: "IRA distribution rules including pro-rata allocation between basis (nondeductible contributions) and taxable amounts"
+        weight: binding
+      - type: IRC
+        section: "408A"
+        description: "Roth IRA rules including conversions from traditional IRA; taxable conversion amount"
+        weight: binding
+      - type: form
+        reference: "Form 8606"
+        weight: explanatory
+    scope: "Computes the taxable portion of traditional IRA distributions using the pro-rata rule, and tracks Roth conversion taxable amounts and nondeductible IRA basis"
+    limitations:
+      - "Requires accurate prior-year basis (nondeductible contributions) as input"
+      - "Pro-rata rule aggregates ALL traditional IRA, SEP, and SIMPLE balances; year-end balances must be provided"
+      - "Roth conversion recharacterization no longer available post-TCJA but prior recharacterizations may affect basis"
+      - "Does not handle inherited IRA distribution rules"
+      - "Back-door Roth strategy tax implications computed but not flagged as planning advice"

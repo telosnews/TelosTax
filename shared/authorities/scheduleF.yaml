@@ -1,0 +1,32 @@
+# shared/authorities/scheduleF.yaml
+module: scheduleF.ts
+functions:
+  calculateScheduleF:
+    authorities:
+      - type: IRC
+        section: "61"
+        description: "Gross income defined: all income from whatever source derived, including income from farming"
+        weight: binding
+      - type: IRC
+        section: "162"
+        description: "Allows deduction for ordinary and necessary trade or business expenses incurred in farming operations"
+        weight: binding
+      - type: IRC
+        section: "175"
+        description: "Allows deduction for soil and water conservation expenditures on farm land"
+        weight: binding
+      - type: IRC
+        section: "180"
+        description: "Allows deduction for expenditures for fertilizer, lime, and other materials to enrich farmland"
+        weight: binding
+      - type: form
+        reference: "Schedule F (Form 1040)"
+        weight: explanatory
+    scope: "Computes net farm profit or loss using the cash method by netting gross farm income (sales of livestock, produce, grains, and other farm products plus agricultural program payments and CCC loans) against allowable farm expenses"
+    limitations:
+      - "Cash method only; does not support accrual method accounting for farm income and expenses"
+      - "Does not compute farm optional method for self-employment tax under IRC 1402(a)"
+      - "Depreciation of farm assets not computed here; Form 4562 depreciation must be provided as input"
+      - "Soil and water conservation deduction under IRC 175 subject to 25% of gross farm income limit not fully validated"
+      - "Does not handle Conservation Reserve Program (CRP) payments for non-farmers"
+      - "Commodity Credit Corporation (CCC) loan reporting election not enforced"

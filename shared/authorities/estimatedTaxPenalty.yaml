@@ -1,0 +1,27 @@
+# shared/authorities/estimatedTaxPenalty.yaml
+module: estimatedTaxPenalty.ts
+functions:
+  calculateEstimatedTaxPenalty:
+    authorities:
+      - type: IRC
+        section: "6654"
+        description: "Underpayment of estimated tax penalty: computed on quarterly shortfalls using federal short-term rate plus 3 percentage points"
+        weight: binding
+      - type: IRC
+        section: "6654(d)(2)"
+        description: "Annualized income installment method — taxpayers with uneven income compute required installments using quarterly annualization factors"
+        weight: binding
+      - type: form
+        reference: "Form 2210"
+        weight: explanatory
+      - type: form
+        reference: "Form 2210, Schedule AI"
+        description: "Annualized Income Installment Method worksheet"
+        weight: explanatory
+    scope: "Computes the estimated tax underpayment penalty with safe harbors and annualized income installment method (Schedule AI)"
+    limitations:
+      - "Regular method uses simplified annual underpayment (not per-quarter tracking)"
+      - "Annualized method does not model itemized deduction variations by period"
+      - "Penalty rate uses current federal short-term rate + 3%; rate must be updated quarterly"
+      - "Does not handle waiver requests for reasonable cause or retirement/disability"
+      - "Farmers and fishermen special rules (single installment) not modeled"

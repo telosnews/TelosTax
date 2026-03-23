@@ -1,0 +1,19 @@
+# shared/authorities/homeSale.yaml
+module: homeSale.ts
+functions:
+  calculateHomeSaleExclusion:
+    authorities:
+      - type: IRC
+        section: "121"
+        description: "Exclusion of gain on sale of principal residence: up to $250,000 (single) or $500,000 (MFJ) if ownership and use tests met (2 of last 5 years)"
+        weight: binding
+      - type: publication
+        reference: "Publication 523"
+        weight: explanatory
+    scope: "Computes the excludable gain on the sale of a principal residence and any taxable gain exceeding the exclusion"
+    limitations:
+      - "Does not validate the 2-out-of-5-year ownership and use tests"
+      - "Reduced exclusion for failure to meet full requirements (unforeseen circumstances) simplified"
+      - "Does not handle nonqualified use allocation for periods after 2008"
+      - "Depreciation recapture on home office portion not computed (unrecaptured Section 1250 gain)"
+      - "Exclusion available only once every two years; prior use not tracked"

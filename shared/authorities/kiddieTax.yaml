@@ -1,0 +1,23 @@
+# shared/authorities/kiddieTax.yaml
+module: kiddieTax.ts
+functions:
+  calculateKiddieTax:
+    authorities:
+      - type: IRC
+        section: "1(g)"
+        description: "Kiddie tax: unearned income of certain children taxed at parent's marginal rate; applies to children under 19 (or under 24 if full-time student)"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3"
+        description: "Inflation-adjusted kiddie tax thresholds for 2025"
+        weight: binding
+      - type: form
+        reference: "Form 8615"
+        weight: explanatory
+    scope: "Computes the kiddie tax on a child's unearned income exceeding the threshold, taxed at the parent's marginal rate"
+    limitations:
+      - "Requires parent's taxable income as input for marginal rate computation"
+      - "Does not handle parent's election to include child's income on parent's return (Form 8814)"
+      - "Does not validate age and student status requirements"
+      - "Net unearned income computation assumes accurate investment income inputs"
+      - "TCJA restored parent-rate method (was briefly estate/trust rates in 2018-2019)"

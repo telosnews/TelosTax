@@ -1,0 +1,25 @@
+{
+  "name": "tax-project",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build:shared": "npm run build -w shared",
+    "test": "npm test -w shared",
+    "gen:constants": "npx tsx scripts/gen-constants-doc.ts"
+  },
+  "devDependencies": {
+    "@types/d3-sankey": "^0.12.5",
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "d3-sankey": "^0.12.3"
+  }
+}

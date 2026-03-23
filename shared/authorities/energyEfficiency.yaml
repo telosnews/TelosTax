@@ -1,0 +1,20 @@
+# shared/authorities/energyEfficiency.yaml
+module: energyEfficiency.ts
+functions:
+  calculateEnergyEfficiencyCredit:
+    authorities:
+      - type: IRC
+        section: "25C"
+        description: "Energy efficient home improvement credit: 30% of qualified expenditures up to $1,200 annual limit ($2,000 for heat pumps); per-item sublimits apply"
+        weight: binding
+      - type: form
+        reference: "Form 5695, Part II"
+        weight: explanatory
+    scope: "Computes the energy efficient home improvement credit subject to annual aggregate and per-category limits for insulation, windows, doors, HVAC, and heat pumps"
+    limitations:
+      - "Annual limit resets each year; prior year usage not tracked"
+      - "Per-item sublimits: $600 for windows, $250/$500 for doors, $600 for other items"
+      - "Heat pump/biomass stove $2,000 limit is separate from the $1,200 general limit"
+      - "Does not validate product certification (Energy Star, IECC requirements)"
+      - "Home energy audit credit ($150 max) included in $1,200 aggregate"
+      - "Credit is nonrefundable"

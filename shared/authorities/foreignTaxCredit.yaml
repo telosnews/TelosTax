@@ -1,0 +1,28 @@
+# shared/authorities/foreignTaxCredit.yaml
+module: foreignTaxCredit.ts
+functions:
+  calculateForeignTaxCredit:
+    authorities:
+      - type: IRC
+        section: "901"
+        description: "Credit for income taxes paid or accrued to foreign countries or US possessions"
+        weight: binding
+      - type: IRC
+        section: "904"
+        description: "Foreign tax credit limitation: credit cannot exceed US tax on foreign source income (separate category baskets)"
+        weight: binding
+      - type: IRC
+        section: "904(d)"
+        description: "Separate application of FTC limitation to general and passive category income"
+        weight: binding
+      - type: form
+        reference: "Form 1116"
+        weight: explanatory
+    scope: "Computes the foreign tax credit with per-category limitations (general/passive) per IRC §904(d). Supports simplified election for small amounts and full Form 1116 limitation formula."
+    limitations:
+      - "Only general and passive categories supported; Section 901(j), treaty, and re-sourcing baskets not modeled"
+      - "Does not handle foreign tax credit carryback (1 year) or carryforward (10 years)"
+      - "Source of income rules (IRC 861-865) not independently computed; relies on input classification"
+      - "Does not handle high-tax kickout under IRC 904(d)(2)(F)"
+      - "De minimis exception ($300/$600 MFJ) for direct credit without Form 1116 modeled"
+      - "Treaty-based positions not considered"

@@ -1,0 +1,27 @@
+# shared/authorities/scheduleC.yaml
+module: scheduleC.ts
+functions:
+  calculateScheduleC:
+    authorities:
+      - type: IRC
+        section: "162"
+        description: "Allows deduction for ordinary and necessary trade or business expenses"
+        weight: binding
+      - type: IRC
+        section: "280A"
+        description: "Limitations on deductions for business use of home"
+        weight: binding
+      - type: IRC
+        section: "274"
+        description: "Limitations on deductions for vehicle and travel expenses; substantiation requirements"
+        weight: binding
+      - type: form
+        reference: "Schedule C (Form 1040), Lines 1-31"
+        weight: explanatory
+    scope: "Computes net profit or loss from sole proprietorship by netting gross income against allowable business expenses"
+    limitations:
+      - "Does not enforce detailed substantiation requirements under IRC 274(d)"
+      - "Does not handle inventory accounting methods or cost of goods sold in detail"
+      - "Home office deduction delegated to homeOffice.ts"
+      - "Vehicle deduction delegated to vehicle.ts"
+      - "At-risk and passive activity rules not applied here"

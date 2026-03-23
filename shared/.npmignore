@@ -1,0 +1,5 @@
+__tests__/
+*.tsbuildinfo
+.npmignore
+tsconfig.json
+vitest.config.*

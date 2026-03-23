@@ -1,0 +1,125 @@
+name: CI — TelosTax Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Job 1: Unit & Integration Tests (Vitest)
+  # ──────────────────────────────────────────────
+  unit-tests:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run shared engine tests
+        run: npm test -w shared
+
+      - name: Run server tests
+        run: npm test -w server
+
+  # ──────────────────────────────────────────────
+  # Job 2: TypeScript Type-Check
+  # ──────────────────────────────────────────────
+  typecheck:
+    name: TypeScript Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check shared engine
+        run: npx tsc -p shared/tsconfig.json --noEmit
+
+      - name: Type-check client
+        run: npx tsc -p client/tsconfig.json --noEmit
+
+      - name: Dependency audit
+        run: npm audit --audit-level=high || true
+
+  # ──────────────────────────────────────────────
+  # Job 3: E2E Tests (Playwright — Chromium only in CI)
+  # ──────────────────────────────────────────────
+  e2e-tests:
+    name: E2E Tests (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+        working-directory: client
+
+      - name: Run E2E tests (Chromium)
+        run: npx playwright test --project=chromium
+        working-directory: client
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: client/playwright-report/
+          retention-days: 7
+
+  # ──────────────────────────────────────────────
+  # Job 4: Build Check
+  # ──────────────────────────────────────────────
+  build:
+    name: Production Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared engine
+        run: npm run build -w shared
+
+      - name: Build client
+        run: npm run build -w client

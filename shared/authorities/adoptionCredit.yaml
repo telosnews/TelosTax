@@ -1,0 +1,23 @@
+# shared/authorities/adoptionCredit.yaml
+module: adoptionCredit.ts
+functions:
+  calculateAdoptionCredit:
+    authorities:
+      - type: IRC
+        section: "23"
+        description: "Adoption credit for qualified adoption expenses; maximum credit amount per child; additional provisions for special needs adoptions"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3.35"
+        description: "Inflation-adjusted maximum adoption credit and income phase-out thresholds for 2025"
+        weight: binding
+      - type: form
+        reference: "Form 8839"
+        weight: explanatory
+    scope: "Computes the nonrefundable adoption credit based on qualified adoption expenses subject to per-child maximum and AGI phase-out"
+    limitations:
+      - "Special needs adoption deemed to have maximum qualified expenses regardless of actual expenses; input must flag special needs"
+      - "Credit timing rules differ for domestic vs. foreign adoptions; simplified"
+      - "Five-year carryforward of unused credit not tracked across years"
+      - "Employer adoption assistance exclusion (IRC 137) coordination not fully modeled"
+      - "Phase-out range is statutory and inflation-adjusted annually"

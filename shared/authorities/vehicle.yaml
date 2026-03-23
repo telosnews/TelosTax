@@ -1,0 +1,44 @@
+# shared/authorities/vehicle.yaml
+module: vehicle.ts
+functions:
+  calculateVehicleDeduction:
+    authorities:
+      - type: IRC
+        section: "162"
+        description: "Deduction for ordinary and necessary business expenses including vehicle expenses"
+        weight: binding
+      - type: IRC
+        section: "274(d)"
+        description: "Substantiation requirements for listed property including vehicles: amount, time, place, business purpose"
+        weight: binding
+      - type: treasury_reg
+        section: "1.274-5T"
+        description: "Temporary regulations on substantiation of vehicle expenses; adequate records requirement"
+        weight: binding
+      - type: rev_proc
+        reference: "IRS Notice 2024-79"
+        description: "Standard mileage rate of $0.70 per mile for business use in 2025"
+        weight: binding
+      - type: form
+        reference: "Form 1040, Schedule C or Form 2106"
+        weight: explanatory
+    scope: "Computes vehicle deduction using either the standard mileage rate or actual expense method for business use of a personal vehicle"
+    limitations:
+      - "Does not enforce the first-year election requirement for standard mileage rate"
+      - "Does not track depreciation component embedded in standard mileage rate"
+      - "Does not handle fleet vehicles (five or more)"
+      - "At-risk rules (Section 465) not enforced for vehicle property"
+  compareVehicleMethods:
+    authorities:
+      - type: IRC
+        section: "162"
+        description: "Business expense deduction for vehicle use"
+        weight: binding
+      - type: rev_proc
+        reference: "IRS Notice 2024-79"
+        description: "Standard mileage rate for 2025: $0.70/mile"
+        weight: binding
+    scope: "Compares the standard mileage rate method to the actual expense method and returns the more beneficial deduction"
+    limitations:
+      - "Comparison is single-year; long-term depreciation impact of method choice not modeled"
+      - "Switching from actual to standard mileage has restrictions not validated"

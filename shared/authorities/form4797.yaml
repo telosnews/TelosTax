@@ -1,0 +1,31 @@
+# shared/authorities/form4797.yaml
+module: form4797.ts
+functions:
+  calculateForm4797:
+    authorities:
+      - type: IRC
+        section: "1231"
+        description: "Property used in trade or business — net gain treated as LTCG, net loss as ordinary"
+        weight: binding
+      - type: IRC
+        section: "1245"
+        description: "Gain from disposition of depreciable personal property — full depreciation recapture as ordinary income"
+        weight: binding
+      - type: IRC
+        section: "1250"
+        description: "Gain from disposition of depreciable real property — excess depreciation recaptured as ordinary income"
+        weight: binding
+      - type: IRC
+        section: "1(h)(1)(E)"
+        description: "Unrecaptured Section 1250 gain (straight-line depreciation) taxed at max 25%"
+        weight: binding
+      - type: form
+        reference: "Form 4797 — Sales of Business Property"
+        weight: explanatory
+    scope: "Computes depreciation recapture (§1245/§1250), unrecaptured §1250 gain (25% rate zone), and §1231 gain/loss netting for sales of business property"
+    limitations:
+      - "Does not model Section 1231 lookback (5-year ordinary loss recapture rule per §1231(c))"
+      - "Does not model installment sale method (§453)"
+      - "Does not model like-kind exchange (§1031) interaction"
+      - "Does not model casualty/theft gains (Form 4797 Part III special rules)"
+      - "Not yet wired into form1040.ts (Sprint 23 integration)"

@@ -1,0 +1,24 @@
+# shared/authorities/evCredit.yaml
+module: evCredit.ts
+functions:
+  calculateEVCredit:
+    authorities:
+      - type: IRC
+        section: "30D"
+        description: "New clean vehicle credit: up to $7,500 ($3,750 critical minerals + $3,750 battery components) subject to MSRP caps and AGI limits"
+        weight: binding
+      - type: IRC
+        section: "25E"
+        description: "Previously owned clean vehicle credit: lesser of $4,000 or 30% of sale price; AGI and price limits apply"
+        weight: binding
+      - type: form
+        reference: "Form 8936"
+        weight: explanatory
+    scope: "Computes the clean vehicle credit for new (Section 30D) or previously owned (Section 25E) electric vehicles subject to MSRP, AGI, and sourcing requirements"
+    limitations:
+      - "Does not validate critical minerals or battery component sourcing percentages"
+      - "Does not verify final assembly in North America"
+      - "MSRP limits ($55k car / $80k van-SUV-truck for new; $25k for used) applied but vehicle classification not validated"
+      - "AGI limits ($150k single / $300k MFJ for new; $75k single / $150k MFJ for used) use prior or current year lesser AGI"
+      - "Point-of-sale transfer to dealer mechanism not modeled"
+      - "Foreign entity of concern (FEOC) battery restrictions not validated"

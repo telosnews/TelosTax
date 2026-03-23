@@ -1,0 +1,35 @@
+# shared/authorities/brackets.yaml
+module: brackets.ts
+functions:
+  calculateProgressiveTax:
+    authorities:
+      - type: IRC
+        section: "1(a)-(d)"
+        description: "Imposes individual income tax using rate tables for four filing statuses"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3.01"
+        description: "Inflation-adjusted bracket thresholds for tax year 2025"
+        weight: binding
+      - type: form
+        reference: "Form 1040, Line 16"
+        weight: explanatory
+    scope: "Computes regular income tax by applying progressive marginal rates to taxable income across all brackets"
+    limitations:
+      - "Does not include preferential rates for capital gains or qualified dividends (see capitalGains.ts)"
+      - "Does not apply AMT computation"
+      - "Bracket thresholds must be updated annually per revenue procedure"
+  getMarginalRate:
+    authorities:
+      - type: IRC
+        section: "1(a)-(d)"
+        description: "Statutory rate tables defining marginal rates of 10%, 12%, 22%, 24%, 32%, 35%, and 37%"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3.01"
+        description: "Inflation-adjusted bracket boundaries for determining applicable marginal rate"
+        weight: binding
+    scope: "Returns the marginal tax rate applicable to the last dollar of taxable income"
+    limitations:
+      - "Returns the statutory marginal rate only; effective rate may differ"
+      - "Does not account for phase-outs or surtaxes that alter effective marginal rates"

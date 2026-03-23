@@ -1,0 +1,26 @@
+# shared/authorities/filingStatusValidation.yaml
+module: filingStatusValidation.ts
+functions:
+  validateHeadOfHousehold:
+    authorities:
+      - type: IRC
+        section: "2(b)"
+        description: "Definition of head of household — unmarried, maintains household, qualifying person"
+        weight: binding
+      - type: IRC
+        section: "7703(b)"
+        description: "Determination of marital status — considered unmarried for HoH when lived apart"
+        weight: binding
+      - type: publication
+        reference: "Pub 501"
+        description: "Dependents, Standard Deduction, and Filing Information — HoH requirements"
+        weight: explanatory
+      - type: form
+        reference: "Form 1040, Filing Status"
+        weight: explanatory
+    scope: "Validates Head of Household filing status eligibility: qualifying person, residency, household costs"
+    limitations:
+      - "Does not verify marital status documentation"
+      - "Does not model temporary absence rules (school, illness)"
+      - "Does not model parent-not-living-with-you exception details"
+      - "Does not verify actual household costs vs. contributions"

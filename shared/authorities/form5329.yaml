@@ -1,0 +1,24 @@
+# shared/authorities/form5329.yaml
+module: form5329.ts
+functions:
+  calculateForm5329:
+    authorities:
+      - type: IRC
+        section: "4973(a)"
+        description: "6% excise tax on excess contributions to IRAs (traditional and Roth)"
+        weight: binding
+      - type: IRC
+        section: "4973(g)"
+        description: "6% excise tax on excess contributions to Health Savings Accounts"
+        weight: binding
+      - type: form
+        reference: "Form 5329"
+        weight: explanatory
+    scope: "Computes additional taxes on excess contributions to IRAs and HSAs, early distributions, and other retirement plan penalty taxes reported on Form 5329"
+    limitations:
+      - "10% early distribution penalty (IRC 72(t)) exceptions must be flagged as input"
+      - "Excess contribution carryforward from prior years must be provided"
+      - "Does not handle excess accumulation penalty (IRC 4974) for required minimum distributions"
+      - "Coverdell ESA excess contribution penalty (IRC 4973(e)) not modeled"
+      - "Corrective distribution deadline tracking not modeled"
+      - "Does not compute excess contribution amounts; relies on input from hsaForm8889.ts and form8606.ts"

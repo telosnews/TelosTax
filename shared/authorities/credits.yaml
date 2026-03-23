@@ -1,0 +1,34 @@
+# shared/authorities/credits.yaml
+module: credits.ts
+functions:
+  calculateCredits:
+    authorities:
+      - type: IRC
+        section: "24"
+        description: "Child Tax Credit of up to $2,000 per qualifying child under age 17; Other Dependents Credit of $500"
+        weight: binding
+      - type: IRC
+        section: "24(d)"
+        description: "Additional Child Tax Credit (refundable portion) with earned income formula"
+        weight: binding
+      - type: IRC
+        section: "25A"
+        description: "Education credits: American Opportunity Tax Credit (AOTC) up to $2,500 per student; Lifetime Learning Credit (LLC) up to $2,000 per return"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Sections 3.23-3.27"
+        description: "Inflation-adjusted CTC/ACTC phase-out thresholds and education credit income limits"
+        weight: binding
+      - type: form
+        reference: "Schedule 8812 (Form 1040)"
+        weight: explanatory
+      - type: form
+        reference: "Form 8863"
+        weight: explanatory
+    scope: "Computes Child Tax Credit, Other Dependents Credit, Additional Child Tax Credit (refundable), AOTC, and LLC with applicable phase-outs"
+    limitations:
+      - "Does not validate qualifying child or dependent tests"
+      - "AOTC four-year per-student limit not tracked across tax years"
+      - "LLC and AOTC cannot both be claimed for the same student; validation not enforced"
+      - "Does not handle CTC/ACTC changes post-TCJA sunset"
+      - "Education credit qualified expenses must be input correctly"

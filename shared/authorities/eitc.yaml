@@ -1,0 +1,26 @@
+# shared/authorities/eitc.yaml
+module: eitc.ts
+functions:
+  calculateEITC:
+    authorities:
+      - type: IRC
+        section: "32"
+        description: "Earned Income Tax Credit computation including phase-in, maximum credit, and phase-out ranges based on earned income, AGI, and qualifying children"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Sections 3.04-3.07"
+        description: "Inflation-adjusted EITC amounts, phase-in/phase-out thresholds, earned income thresholds, and investment income limit for 2025"
+        weight: binding
+      - type: form
+        reference: "Schedule EIC (Form 1040)"
+        weight: explanatory
+      - type: publication
+        reference: "Publication 596"
+        weight: explanatory
+    scope: "Computes the refundable Earned Income Tax Credit based on earned income, AGI, filing status, and number of qualifying children"
+    limitations:
+      - "Does not validate qualifying child tests (age, relationship, residency)"
+      - "Investment income disqualification test applied but components not decomposed"
+      - "Does not handle disallowance period after prior year audit"
+      - "Does not handle taxpayers with foreign earned income"
+      - "Self-employed income must already be computed before calling this function"

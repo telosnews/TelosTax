@@ -1,0 +1,23 @@
+# shared/authorities/cleanEnergy.yaml
+module: cleanEnergy.ts
+functions:
+  calculateCleanEnergyCredit:
+    authorities:
+      - type: IRC
+        section: "25D"
+        description: "Residential clean energy credit: 30% of qualified expenditures for solar electric, solar water heating, fuel cell, small wind, geothermal, and battery storage"
+        weight: binding
+      - type: IRC
+        section: "25D(c)"
+        description: "Carryforward of unused residential clean energy credit to succeeding taxable years"
+        weight: binding
+      - type: form
+        reference: "Form 5695, Part I"
+        weight: explanatory
+    scope: "Computes the residential clean energy credit at 30% of qualifying expenditures for eligible clean energy property with carryforward tracking for unused credit"
+    limitations:
+      - "Does not validate property eligibility or certification requirements"
+      - "Fuel cell credit has per-kW capacity limit ($500/half kW) not fully modeled"
+      - "Credit is nonrefundable; unused credit carryforward is now tracked"
+      - "Property must be placed in service at taxpayer's US residence"
+      - "30% rate applies through 2032; phases down to 26% in 2033 and 22% in 2034"

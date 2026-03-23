@@ -1,0 +1,18 @@
+# shared/authorities/additionalMedicare.yaml
+module: additionalMedicare.ts
+functions:
+  calculateAdditionalMedicareTaxW2:
+    authorities:
+      - type: IRC
+        section: "3101(b)(2)"
+        description: "Additional Hospital Insurance tax of 0.9% on wages exceeding threshold ($200k single, $250k MFJ)"
+        weight: binding
+      - type: form
+        reference: "Form 8959"
+        weight: explanatory
+    scope: "Computes the 0.9% Additional Medicare Tax on W-2 wages and/or self-employment income exceeding the applicable threshold, net of employer withholding"
+    limitations:
+      - "Thresholds are not indexed for inflation"
+      - "Employer withholding credit must be reconciled with actual liability"
+      - "Does not combine W-2 wages with SE income for married filing jointly threshold; taxpayer must aggregate"
+      - "Railroad Tier 1 compensation not handled"

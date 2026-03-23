@@ -1,0 +1,22 @@
+# shared/authorities/form8911.yaml
+module: form8911.ts
+functions:
+  calculateEVRefuelingCredit:
+    authorities:
+      - type: IRC
+        section: "30C"
+        description: "Alternative fuel vehicle refueling property credit: 30% of cost of qualified refueling property, subject to per-property caps ($1,000 personal / $100,000 business)"
+        weight: binding
+      - type: legislation
+        reference: "IRA Section 13404"
+        description: "Extension and modification of alternative fuel refueling property credit through 2032; added eligible census tract requirement"
+        weight: binding
+      - type: form
+        reference: "Form 8911"
+        weight: explanatory
+    scope: "Computes the personal-use EV refueling property credit (30% of qualified costs, $1,000/property cap, non-refundable)"
+    limitations:
+      - "Does not compute business-use credit (would flow through Form 3800 General Business Credit)"
+      - "Assumes user has verified eligible census tract requirement (low-income community or non-urban area)"
+      - "Does not track basis reduction of property by credit amount"
+      - "Does not model AMT limitation (Form 8911, Line 15)"

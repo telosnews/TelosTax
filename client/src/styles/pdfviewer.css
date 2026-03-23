@@ -1,0 +1,37 @@
+/**
+ * Syncfusion PDF Viewer — Lazy-loaded CSS
+ *
+ * This file is NOT imported from globals.css. It loads automatically
+ * when the FormsMode chunk loads via Vite code splitting, so the
+ * ~200KB of PDF viewer CSS never touches the initial bundle.
+ */
+@import '@syncfusion/ej2-base/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-buttons/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-inputs/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-popups/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-lists/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-navigations/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-dropdowns/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-splitbuttons/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-notifications/styles/tailwind-dark.css';
+@import '@syncfusion/ej2-react-pdfviewer/styles/tailwind-dark.css';
+
+/* Override PDF viewer background for dark theme consistency */
+.e-pdfviewer .e-pv-viewer-container {
+  background-color: #1e293b; /* slate-800 */
+}
+
+/* Editable field styling in Forms Mode */
+.e-pdfviewer .e-pv-formfield-input.forms-mode-editable {
+  border: 1.5px solid #3b82f6 !important;
+  background-color: #ffffff !important;
+}
+
+.e-pdfviewer .e-pv-formfield-input.forms-mode-computed {
+  border: 1px solid #94a3b8 !important;
+  background-color: #fff9db !important;
+}
+
+.e-pdfviewer .e-pv-formfield-input.forms-mode-error {
+  border: 1.5px solid #ef4444 !important;
+}

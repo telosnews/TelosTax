@@ -1,0 +1,27 @@
+# shared/authorities/scheduleD.yaml
+module: scheduleD.ts
+functions:
+  calculateScheduleD:
+    authorities:
+      - type: IRC
+        section: "1(h)"
+        description: "Tax rates on net capital gain including 0%, 15%, and 20% brackets"
+        weight: binding
+      - type: IRC
+        section: "1211(b)"
+        description: "Capital loss limitation: net capital loss deduction limited to $3,000 ($1,500 MFS) per year"
+        weight: binding
+      - type: IRC
+        section: "1212(b)"
+        description: "Capital loss carryover rules for individuals; unlimited carryforward"
+        weight: binding
+      - type: form
+        reference: "Schedule D (Form 1040)"
+        weight: explanatory
+    scope: "Computes net short-term and long-term capital gains/losses, applies the $3,000 loss limitation, and determines capital loss carryforward"
+    limitations:
+      - "Does not handle wash sale adjustments (IRC 1091)"
+      - "Does not handle constructive sales under IRC 1259"
+      - "28% rate group (collectibles) and 25% rate group (unrecaptured 1250 gain) not fully modeled"
+      - "Capital loss carryforward from prior years must be provided as input"
+      - "Does not handle section 1256 contracts (60/40 split)"

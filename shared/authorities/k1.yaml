@@ -1,0 +1,41 @@
+# shared/authorities/k1.yaml
+module: k1.ts
+functions:
+  routeK1Income:
+    authorities:
+      - type: IRC
+        section: "701-704"
+        description: "Partnership taxation: pass-through of income, deductions, gains, losses, and credits to partners"
+        weight: binding
+      - type: IRC
+        section: "1366"
+        description: "S corporation pass-through of income, deductions, and credits to shareholders"
+        weight: binding
+      - type: IRC
+        section: "179"
+        description: "Section 179 expense deduction passed through on K-1"
+        weight: binding
+      - type: form
+        reference: "Schedule K-1 (Form 1065 / Form 1120-S / Form 1041)"
+        weight: explanatory
+    scope: "Routes individual K-1 line items to the appropriate lines on Form 1040 and supporting schedules"
+    limitations:
+      - "Does not compute partner/shareholder basis; assumes sufficient basis for loss deductions"
+      - "At-risk limitations under IRC 465 not applied"
+      - "Passive activity loss limitations under IRC 469 applied separately in scheduleE.ts"
+      - "Does not handle guaranteed payments to partners (IRC 707(c)) separately"
+      - "Trust/estate K-1 (Form 1041) handling is limited"
+  aggregateK1Income:
+    authorities:
+      - type: IRC
+        section: "701-704"
+        description: "Aggregation of pass-through income from multiple entities"
+        weight: binding
+      - type: IRC
+        section: "1366"
+        description: "S corporation income aggregation rules"
+        weight: binding
+    scope: "Aggregates income, deductions, and credits from multiple K-1 forms into unified totals for Form 1040 reporting"
+    limitations:
+      - "Does not net passive losses from one entity against passive income from another (see scheduleE.ts)"
+      - "QBI aggregation for Section 199A purposes not handled here (see qbi.ts)"

@@ -1,0 +1,23 @@
+# shared/authorities/feie.yaml
+module: feie.ts
+functions:
+  calculateFEIE:
+    authorities:
+      - type: IRC
+        section: "911"
+        description: "Foreign earned income exclusion: qualifying individuals may exclude foreign earned income up to annual limit; foreign housing exclusion/deduction also available"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3"
+        description: "Inflation-adjusted FEIE exclusion amount for 2025: $130,000"
+        weight: binding
+      - type: form
+        reference: "Form 2555"
+        weight: explanatory
+    scope: "Computes the foreign earned income exclusion and foreign housing exclusion/deduction for qualifying taxpayers"
+    limitations:
+      - "Does not validate bona fide residence test or physical presence test (330-day rule)"
+      - "Housing exclusion base amount and limitation by location not fully modeled"
+      - "Self-employed taxpayers use housing deduction instead of exclusion; distinction simplified"
+      - "Exclusion reduces income but stacking rule (IRC 911(d)(7)) increases effective rate on remaining income"
+      - "Revocation of election has 5-year lockout; not tracked"

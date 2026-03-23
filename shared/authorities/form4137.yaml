@@ -1,0 +1,26 @@
+# shared/authorities/form4137.yaml
+module: form4137.ts
+functions:
+  calculateForm4137:
+    authorities:
+      - type: IRC
+        section: "3121(q)"
+        description: "Tips treated as wages: unreported tips are subject to employee FICA taxes (SS + Medicare)"
+        weight: binding
+      - type: IRC
+        section: "3101(a)"
+        description: "Employee Social Security tax rate: 6.2% on wages up to the SS wage base"
+        weight: binding
+      - type: IRC
+        section: "3101(b)(1)"
+        description: "Employee Medicare tax rate: 1.45% on all wages (no cap)"
+        weight: binding
+      - type: form
+        reference: "Form 4137"
+        weight: explanatory
+    scope: "Computes employee share of SS and Medicare tax on unreported tip income, coordinated with W-2 Social Security wages for wage base cap"
+    limitations:
+      - "Does not compute employer share of FICA on unreported tips"
+      - "Does not compute Additional Medicare Tax (0.9%) — handled separately in additionalMedicare.ts"
+      - "Does not validate tip reporting requirements or thresholds ($20/month)"
+      - "Does not model allocated tips (Form W-2, Box 8)"

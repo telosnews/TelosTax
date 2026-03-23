@@ -1,0 +1,40 @@
+# shared/authorities/scheduleH.yaml
+module: scheduleH.ts
+functions:
+  calculateScheduleH:
+    authorities:
+      - type: IRC
+        section: "3111(a)"
+        description: "Employer share of Social Security tax (6.2%)"
+        weight: binding
+      - type: IRC
+        section: "3101(a)"
+        description: "Employee share of Social Security tax (6.2%)"
+        weight: binding
+      - type: IRC
+        section: "3111(b)"
+        description: "Employer share of Medicare tax (1.45%)"
+        weight: binding
+      - type: IRC
+        section: "3101(b)"
+        description: "Employee share of Medicare tax (1.45%)"
+        weight: binding
+      - type: IRC
+        section: "3301"
+        description: "Federal Unemployment Tax Act (FUTA): 6.0% on first $7,000 of wages per employee, reduced by state credit"
+        weight: binding
+      - type: IRC
+        section: "3121(x)"
+        description: "Domestic service employment threshold ($2,800 for 2025)"
+        weight: binding
+      - type: form
+        reference: "Schedule H (Form 1040), Lines 2 and 4"
+        description: "Line 2: wages × 12.4% (combined SS), Line 4: wages × 2.9% (combined Medicare)"
+        weight: explanatory
+    scope: "Computes household employment taxes: combined employer+employee Social Security (12.4%), Medicare (2.9%), and FUTA (0.6%) on household employee wages"
+    limitations:
+      - "Household employee threshold ($2,800 for 2025) must be verified annually"
+      - "FUTA credit reduction for states with outstanding federal loans not modeled"
+      - "Does not handle state unemployment tax credit computation"
+      - "FUTA quarterly threshold can be overridden via subjectToFUTA flag when quarterly wage data is known"
+      - "Does not handle family member or minor exceptions"

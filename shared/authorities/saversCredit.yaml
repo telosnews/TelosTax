@@ -1,0 +1,22 @@
+# shared/authorities/saversCredit.yaml
+module: saversCredit.ts
+functions:
+  calculateSaversCredit:
+    authorities:
+      - type: IRC
+        section: "25B"
+        description: "Retirement savings contributions credit: 10%, 20%, or 50% of up to $2,000 in eligible contributions based on AGI"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-40, Section 3.06"
+        description: "Inflation-adjusted AGI thresholds for Saver's Credit rate tiers"
+        weight: binding
+      - type: form
+        reference: "Form 8880"
+        weight: explanatory
+    scope: "Computes the nonrefundable Saver's Credit based on eligible retirement contributions and AGI-determined credit rate"
+    limitations:
+      - "Does not validate eligibility (age 18+, not student, not dependent)"
+      - "Distributions from retirement plans in testing period reduce eligible contributions but not fully tracked"
+      - "Maximum contribution considered is $2,000 per person ($4,000 MFJ)"
+      - "Nonrefundable; cannot exceed tax liability"

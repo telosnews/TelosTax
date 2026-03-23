@@ -1,0 +1,30 @@
+# shared/authorities/estimatedTax.yaml
+module: estimatedTax.ts
+functions:
+  calculateEstimatedQuarterly:
+    authorities:
+      - type: IRC
+        section: "6654"
+        description: "Required annual payment of estimated tax; quarterly installment rules and due dates"
+        weight: binding
+      - type: form
+        reference: "Form 1040-ES"
+        weight: explanatory
+    scope: "Computes quarterly estimated tax payment amounts based on projected annual tax liability"
+    limitations:
+      - "Does not handle annualized income installment method"
+      - "Does not account for fiscal year taxpayers"
+      - "Due date adjustments for weekends/holidays not computed"
+  calculateSafeHarbor:
+    authorities:
+      - type: IRC
+        section: "6654(d)"
+        description: "Safe harbor rules: 100% of prior year tax or 90% of current year tax; 110% prior year for AGI over $150,000"
+        weight: binding
+      - type: form
+        reference: "Form 1040-ES, Estimated Tax Worksheet"
+        weight: explanatory
+    scope: "Determines the minimum required estimated payment to avoid underpayment penalty using safe harbor thresholds"
+    limitations:
+      - "Prior year AGI threshold for 110% rule ($150,000 / $75,000 MFS) is statutory and not inflation-adjusted"
+      - "Does not handle exceptions for farmers and fishermen (66.67% rule)"

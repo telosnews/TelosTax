@@ -1,0 +1,27 @@
+# shared/authorities/dependentCare.yaml
+module: dependentCare.ts
+functions:
+  calculateDependentCareCredit:
+    authorities:
+      - type: IRC
+        section: "21"
+        description: "Credit for child and dependent care expenses: 20%-35% of up to $3,000 (one) / $6,000 (two or more) qualifying individuals"
+        weight: binding
+      - type: IRC
+        section: "21(d)(2)"
+        description: "Student/disabled spouse deemed earned income: $250/month (one qualifying person) or $500/month (two+)"
+        weight: binding
+      - type: IRC
+        section: "129"
+        description: "Dependent care assistance programs: up to $5,000 ($2,500 MFS) excludable from income; excess is taxable"
+        weight: binding
+      - type: form
+        reference: "Form 2441"
+        weight: explanatory
+    scope: "Full Form 2441 computation with employer benefits reconciliation (Part III), student/disabled spouse deemed income, MFS lived-apart exception, and AGI-based credit rate"
+    limitations:
+      - "Does not validate qualifying individual tests (age, dependency, incapacity)"
+      - "Does not validate care provider identification requirements"
+      - "Enhanced ARPA provisions (2021 only) not applicable for 2025"
+      - "Does not model partial-year student/disabled spouse (assumes full 12 months)"
+      - "MFS lived-apart exception requires user attestation (livedApartFromSpouse flag)"

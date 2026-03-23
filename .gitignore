@@ -1,0 +1,27 @@
+node_modules/
+dist/
+.env
+*.tsbuildinfo
+
+# OS files
+.DS_Store
+
+# SQLite database files
+server/data/*.db
+server/data/*.db-shm
+server/data/*.db-wal
+
+# Claude project files
+.claude/
+
+# Test artifacts
+client/playwright-report/
+client/test-results/
+
+# Internal audit & review docs
+client/SECURITY-AUDIT*.md
+client/UX-REVIEW*.md
+*.rtf
+
+# Archive (private files, research, strategy, test data)
+Archive/

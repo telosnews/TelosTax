@@ -1,0 +1,44 @@
+# shared/authorities/premiumTaxCredit.yaml
+module: premiumTaxCredit.ts
+functions:
+  calculatePremiumTaxCredit:
+    authorities:
+      - type: IRC
+        section: "36B"
+        description: "Premium Tax Credit: refundable credit for health insurance purchased through Marketplace; based on applicable benchmark plan and household income as percentage of FPL"
+        weight: binding
+      - type: statute
+        section: "ACA Section 1401"
+        description: "Affordable Care Act establishment of PTC"
+        weight: binding
+      - type: statute
+        section: "IRA Section 12001"
+        description: "Inflation Reduction Act extension of enhanced PTC subsidies through 2025"
+        weight: binding
+      - type: rev_proc
+        reference: "Rev. Proc. 2024-35"
+        description: "Applicable percentage table for PTC computation for 2025"
+        weight: binding
+      - type: form
+        reference: "Form 8962"
+        weight: explanatory
+    scope: "Computes the Premium Tax Credit as the excess of the benchmark plan premium over the expected contribution (applicable percentage of household income)"
+    limitations:
+      - "Federal Poverty Level guidelines must be updated annually"
+      - "Does not handle Marketplace-specific SLCSP (second lowest cost silver plan) lookups"
+      - "Advance PTC reconciliation (excess APTC repayment) modeled but repayment caps may change"
+      - "Does not handle employer offer of affordable coverage (affordability safe harbors)"
+      - "Family glitch fix (2023+) included but not all edge cases modeled"
+  calculatePTCHouseholdIncome:
+    authorities:
+      - type: IRC
+        section: "36B(d)(2)"
+        description: "Household income definition: MAGI of taxpayer plus MAGI of all individuals claimed as dependents required to file"
+        weight: binding
+      - type: form
+        reference: "Form 8962, Part I"
+        weight: explanatory
+    scope: "Computes household income as a percentage of the Federal Poverty Level for PTC eligibility and amount determination"
+    limitations:
+      - "Family size determination relies on tax family; may differ from Marketplace application"
+      - "FPL amounts must be updated annually from HHS guidelines"

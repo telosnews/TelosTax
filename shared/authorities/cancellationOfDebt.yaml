@@ -1,0 +1,24 @@
+# shared/authorities/cancellationOfDebt.yaml
+module: cancellationOfDebt.ts
+functions:
+  calculateCancellationOfDebt:
+    authorities:
+      - type: IRC
+        section: "61(a)(11)"
+        description: "Cancellation of indebtedness income included in gross income"
+        weight: binding
+      - type: IRC
+        section: "108"
+        description: "Exclusions from COD income: bankruptcy (108(a)(1)(A)), insolvency (108(a)(1)(B)), qualified principal residence indebtedness (108(a)(1)(E)), qualified farm indebtedness (108(a)(1)(C))"
+        weight: binding
+      - type: form
+        reference: "Form 982"
+        weight: explanatory
+    scope: "Computes taxable cancellation of debt income after applying applicable exclusions under IRC 108, and determines tax attribute reductions"
+    limitations:
+      - "Insolvency exclusion limited to extent of insolvency; requires balance sheet data as input"
+      - "Tax attribute reduction ordering rules (IRC 108(b)) simplified"
+      - "QPRI exclusion expired after 2025 for most discharges; effective date must be verified"
+      - "Does not handle related-party debt cancellation rules"
+      - "Student loan discharge exclusion (IRC 108(f)(5)) for 2021-2025 may be applicable"
+      - "1099-C reporting reconciliation not modeled"

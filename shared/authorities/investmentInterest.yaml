@@ -1,0 +1,19 @@
+# shared/authorities/investmentInterest.yaml
+module: investmentInterest.ts
+functions:
+  calculateInvestmentInterest:
+    authorities:
+      - type: IRC
+        section: "163(d)"
+        description: "Investment interest expense deduction limited to net investment income; excess carries forward indefinitely"
+        weight: binding
+      - type: form
+        reference: "Form 4952"
+        weight: explanatory
+    scope: "Computes the deductible investment interest expense limited to net investment income, and determines the carryforward of disallowed interest"
+    limitations:
+      - "Election to treat qualified dividends and/or capital gains as investment income (forgoing preferential rates) modeled but taxpayer must affirmatively elect"
+      - "Net investment income computation does not decompose all component types"
+      - "Carryforward from prior years must be provided as input"
+      - "Does not apply to interest properly allocable to a passive activity"
+      - "Margin interest and other investment borrowing costs must be correctly classified as input"
