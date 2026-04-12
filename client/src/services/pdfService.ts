@@ -792,7 +792,7 @@ export async function generateStateTaxSummaryPDF(
   if (sr.bracketDetails && sr.bracketDetails.length > 0) {
     drawSectionHeader(page, fonts, cursor, 'Tax Bracket Details');
     for (const b of sr.bracketDetails) {
-      drawRow(page, fonts, cursor, `${(b.rate * 100).toFixed(1)}% bracket`, `${fmtDollar(b.taxableAtRate)} → ${fmtDollar(b.taxAtRate)}`);
+      drawRow(page, fonts, cursor, `${(b.rate * 100).toFixed(1)}% bracket`, `${fmtDollar(b.taxableAtRate)} -> ${fmtDollar(b.taxAtRate)}`);
     }
   }
 
