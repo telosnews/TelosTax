@@ -237,8 +237,10 @@ export default function ExportPdfStep() {
         triggerDownload(blob, `telostax-filing-packet-${taxReturn?.taxYear || 2025}-${returnId}.pdf`);
         setIrsDone(true);
         toast.success(pw ? 'Password-protected filing packet downloaded' : 'Filing packet downloaded');
-      } catch {
-        toast.error('Failed to generate filing packet. Make sure you have income data entered.');
+      } catch (err) {
+        console.error('Filing packet generation failed:', err);
+        const msg = err instanceof Error ? err.message : 'Unknown error';
+        toast.error(`Failed to generate filing packet: ${msg}`);
       } finally {
         setIrsLoading(false);
       }
@@ -250,8 +252,10 @@ export default function ExportPdfStep() {
         triggerDownload(blob, `telostax-return-${taxReturn?.taxYear || 2025}-${returnId}.pdf`);
         setPdfDone(true);
         toast.success(pw ? 'Password-protected PDF downloaded' : 'PDF downloaded');
-      } catch {
-        toast.error('Failed to generate PDF. Make sure you have income data entered.');
+      } catch (err) {
+        console.error('Summary PDF generation failed:', err);
+        const msg = err instanceof Error ? err.message : 'Unknown error';
+        toast.error(`Failed to generate PDF: ${msg}`);
       } finally {
         setPdfLoading(false);
       }

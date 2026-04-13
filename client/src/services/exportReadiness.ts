@@ -130,17 +130,21 @@ export function checkExportReadiness(taxReturn: TaxReturn): ReadinessResult {
     (taxReturn.income1099NEC?.length || 0) > 0 ||
     (taxReturn.income1099K?.length || 0) > 0 ||
     (taxReturn.income1099INT?.length || 0) > 0 ||
+    (taxReturn.income1099OID?.length || 0) > 0 ||
     (taxReturn.income1099DIV?.length || 0) > 0 ||
     (taxReturn.income1099R?.length || 0) > 0 ||
     (taxReturn.income1099G?.length || 0) > 0 ||
     (taxReturn.income1099MISC?.length || 0) > 0 ||
     (taxReturn.income1099B?.length || 0) > 0 ||
+    (taxReturn.income1099C?.length || 0) > 0 ||
     (taxReturn.income1099DA?.length || 0) > 0 ||
     (taxReturn.incomeK1?.length || 0) > 0 ||
     (taxReturn.incomeSSA1099 != null) ||
     (taxReturn.incomeW2G?.length || 0) > 0 ||
     (taxReturn.businesses?.length || 0) > 0 ||
     (taxReturn.rentalProperties?.length || 0) > 0 ||
+    (taxReturn.royaltyProperties?.length || 0) > 0 ||
+    (taxReturn.alimonyReceived != null) ||
     (taxReturn.otherIncome || 0) !== 0;
 
   if (!hasAnyIncome) {
