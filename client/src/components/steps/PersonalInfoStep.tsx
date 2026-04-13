@@ -440,6 +440,25 @@ export default function PersonalInfoStep() {
           </div>
         </label>
 
+        {/* Estimated Tax Payments */}
+        <div className="flex items-start gap-3 p-3 rounded-lg bg-surface-800 border border-slate-700/50">
+          <div className="w-full">
+            <FormField label="Estimated Tax Payments Made in 2025" tooltip="Enter the total federal estimated tax payments you made for 2025 (Form 1040-ES). Include any amount applied from your 2024 refund." irsRef="Form 1040, Line 26">
+              <input
+                type="text"
+                className="input-field w-48"
+                value={taxReturn.estimatedPaymentsMade || ''}
+                onChange={(e) => {
+                  const raw = e.target.value.replace(/[^0-9.]/g, '');
+                  updateField('estimatedPaymentsMade', raw ? parseFloat(raw) : undefined);
+                }}
+                placeholder="$0"
+                inputMode="decimal"
+              />
+            </FormField>
+          </div>
+        </div>
+
         {/* IP PIN */}
         <div className="flex items-start gap-3 p-3 rounded-lg bg-surface-800 border border-slate-700/50">
           <div>

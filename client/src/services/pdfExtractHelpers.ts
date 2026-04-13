@@ -36,6 +36,8 @@ export interface PDFExtractResult {
   ocrAvailable?: boolean;        // true when PDF appears scanned and OCR can be tried
   rawOCRText?: string;           // Raw OCR text for AI enhancement (only when ocrUsed)
   aiEnhanced?: boolean;          // Set after AI enhancement applied
+  /** Additional forms extracted from a multi-form PDF (e.g., consolidated brokerage statement). */
+  additionalResults?: PDFExtractResult[];
 }
 
 // ─── Import Trace Types ───────────────────────────

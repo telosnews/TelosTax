@@ -530,147 +530,162 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
   // f1_52: Line 1f — Employer-provided adoption benefits (Form 8839 — not yet supported)
   // f1_53: Line 1g — Wages from Form 8919 (not yet supported)
   // f1_54: Line 1h — Other earned income (not yet supported)
-  // f1_55: Line 1i — Nontaxable combat pay
+  // f1_55: Line 1h — Other earned income (amount)
+  // f1_56: Line 1i — Nontaxable combat pay
   {
-    pdfFieldName: `${P1}.f1_55[0]`,
+    pdfFieldName: `${P1}.f1_56[0]`,
     sourcePath: 'nontaxableCombatPay',
     source: 'taxReturn',
     format: 'dollarNoCents',
     editable: true,
     formLabel: 'Line 1i: Nontaxable combat pay election',
   },
-  // f1_56: Line 1z — Add lines 1a through 1h
+  // f1_57: Line 1z — Add lines 1a through 1h
   {
-    pdfFieldName: `${P1}.f1_56[0]`,
+    pdfFieldName: `${P1}.f1_57[0]`,
     sourcePath: 'form1040.totalWages',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 1z: Total of lines 1a through 1h',
   },
 
-  // f1_57: Line 2a — Tax-exempt interest (informational)
+  // f1_58: Line 2a — Tax-exempt interest (informational)
   {
-    pdfFieldName: `${P1}.f1_57[0]`,
+    pdfFieldName: `${P1}.f1_58[0]`,
     sourcePath: 'form1040.taxExemptInterest',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 2a: Tax-exempt interest',
   },
-  // f1_58: Line 2b — Taxable interest
+  // f1_59: Line 2b — Taxable interest
   {
-    pdfFieldName: `${P1}.f1_58[0]`,
+    pdfFieldName: `${P1}.f1_59[0]`,
     sourcePath: 'form1040.totalInterest',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 2b: Taxable interest',
   },
-  // f1_59: Line 3a — Qualified dividends (informational)
+  // f1_60: Line 3a — Qualified dividends (informational)
   {
-    pdfFieldName: `${P1}.f1_59[0]`,
+    pdfFieldName: `${P1}.f1_60[0]`,
     sourcePath: 'form1040.qualifiedDividends',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 3a: Qualified dividends',
   },
-  // f1_60: Line 3b — Ordinary dividends
+  // f1_61: Line 3b — Ordinary dividends
   {
-    pdfFieldName: `${P1}.f1_60[0]`,
+    pdfFieldName: `${P1}.f1_61[0]`,
     sourcePath: 'form1040.totalDividends',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 3b: Ordinary dividends',
   },
 
-  // f1_61: Line 4a — IRA distributions (gross)
+  // c1_33/c1_34: Line 3c — Child's dividends checkboxes (skip — rare)
+
+  // f1_62: Line 4a — IRA distributions (gross)
   {
-    pdfFieldName: `${P1}.f1_61[0]`,
+    pdfFieldName: `${P1}.f1_62[0]`,
     sourcePath: 'form1040.iraDistributionsGross',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 4a: IRA distributions',
   },
-  // f1_62: Line 4b — Taxable amount
+  // f1_63: Line 4b — Taxable amount
   {
-    pdfFieldName: `${P1}.f1_62[0]`,
+    pdfFieldName: `${P1}.f1_63[0]`,
     sourcePath: 'form1040.iraDistributionsTaxable',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 4b: IRA distributions, taxable amount',
   },
 
-  // f1_63: Line 5a — Pensions and annuities (gross)
+  // c1_35/c1_36/c1_37: Line 4c checkboxes (Rollover, QCD)
+  // f1_64: Line 4c "3" field (QCD/other amount — skip for now)
+
+  // f1_65: Line 5a — Pensions and annuities (gross)
   {
-    pdfFieldName: `${P1}.f1_63[0]`,
+    pdfFieldName: `${P1}.f1_65[0]`,
     sourcePath: 'form1040.pensionDistributionsGross',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 5a: Pensions and annuities',
   },
-  // f1_64: Line 5b — Taxable amount
+  // f1_66: Line 5b — Taxable amount
   {
-    pdfFieldName: `${P1}.f1_64[0]`,
+    pdfFieldName: `${P1}.f1_66[0]`,
     sourcePath: 'form1040.pensionDistributionsTaxable',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 5b: Pensions and annuities, taxable amount',
   },
 
-  // f1_65: Line 6a — Social security benefits
+  // c1_38/c1_39/c1_40: Line 5c checkboxes (Rollover, PSO)
+  // f1_67: Line 5c "3" field (PSO amount — skip for now)
+
+  // f1_68: Line 6a — Social security benefits
   {
-    pdfFieldName: `${P1}.f1_65[0]`,
+    pdfFieldName: `${P1}.f1_68[0]`,
     sourcePath: 'form1040.socialSecurityBenefits',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 6a: Social security benefits',
   },
-  // f1_66: Line 6b — Taxable amount
+  // f1_69: Line 6b — Taxable amount
   {
-    pdfFieldName: `${P1}.f1_66[0]`,
+    pdfFieldName: `${P1}.f1_69[0]`,
     sourcePath: 'form1040.taxableSocialSecurity',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 6b: Social security, taxable amount',
   },
 
-  // f1_67: Line 7a — Capital gain or (loss)
+  // c1_41: Line 6c checkbox (lump-sum election)
+  // c1_42: Line 6d checkbox (MFS lived apart)
+
+  // f1_70: Line 7a — Capital gain or (loss)
   {
-    pdfFieldName: `${P1}.f1_67[0]`,
+    pdfFieldName: `${P1}.f1_70[0]`,
     sourcePath: 'form1040.capitalGainOrLoss',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 7: Capital gain or (loss)',
   },
 
-  // f1_68: Line 8 — Additional income from Schedule 1, line 10
+  // c1_43/c1_44: Line 7b checkboxes (Schedule D not required, child's capital gain)
+  // f1_71: Line 7b field (child's capital gain amount — skip)
+
+  // f1_72: Line 8 — Additional income from Schedule 1, line 10
   {
-    pdfFieldName: `${P1}.f1_68[0]`,
+    pdfFieldName: `${P1}.f1_72[0]`,
     sourcePath: 'form1040.additionalIncome',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 8: Other income from Schedule 1',
   },
 
-  // f1_69: Line 9 — Total income
+  // f1_73: Line 9 — Total income
   {
-    pdfFieldName: `${P1}.f1_69[0]`,
+    pdfFieldName: `${P1}.f1_73[0]`,
     sourcePath: 'form1040.totalIncome',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 9: Total income',
   },
 
-  // f1_70: Line 10 — Adjustments to income from Schedule 1, line 26
+  // f1_74: Line 10 — Adjustments to income from Schedule 1, line 26
   {
-    pdfFieldName: `${P1}.f1_70[0]`,
+    pdfFieldName: `${P1}.f1_74[0]`,
     sourcePath: 'form1040.totalAdjustments',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 10: Adjustments to income',
   },
 
-  // f1_71: Line 11a — Adjusted gross income (AGI)
+  // f1_75: Line 11a — Adjusted gross income (AGI)
   {
-    pdfFieldName: `${P1}.f1_71[0]`,
+    pdfFieldName: `${P1}.f1_75[0]`,
     sourcePath: 'form1040.agi',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -791,18 +806,19 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 15: Taxable income',
   },
 
-  // f2_07: Line 16 — Tax (from tax table or worksheet)
+  // f2_07: Line 16 "3" field (form number for checkbox — skip)
+  // f2_08: Line 16 — Tax (from tax table or worksheet)
   {
-    pdfFieldName: `${P2}.f2_07[0]`,
+    pdfFieldName: `${P2}.f2_08[0]`,
     sourcePath: 'form1040.incomeTax',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 16: Tax',
   },
 
-  // f2_08: Line 17 — Amount from Schedule 2, line 3
+  // f2_09: Line 17 — Amount from Schedule 2, line 3
   {
-    pdfFieldName: `${P2}.f2_08[0]`,
+    pdfFieldName: `${P2}.f2_09[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -814,18 +830,18 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 17: Amount from Schedule 2, Part I',
   },
 
-  // f2_09: Line 18 — Add lines 16 and 17
+  // f2_10: Line 18 — Add lines 16 and 17
   {
-    pdfFieldName: `${P2}.f2_09[0]`,
+    pdfFieldName: `${P2}.f2_10[0]`,
     sourcePath: 'form1040.incomeTax',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 18: Tax plus Schedule 2',
   },
 
-  // f2_10: Line 19 — Child tax credit or credit for other dependents
+  // f2_11: Line 19 — Child tax credit or credit for other dependents
   {
-    pdfFieldName: `${P2}.f2_10[0]`,
+    pdfFieldName: `${P2}.f2_11[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -836,9 +852,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 19: Child tax credit / other dependent credit',
   },
 
-  // f2_11: Line 20 — Amount from Schedule 3, line 8
+  // f2_12: Line 20 — Amount from Schedule 3, line 8
   {
-    pdfFieldName: `${P2}.f2_11[0]`,
+    pdfFieldName: `${P2}.f2_12[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -861,9 +877,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 20: Schedule 3 nonrefundable credits',
   },
 
-  // f2_12: Line 21 — Add lines 19 and 20
+  // f2_13: Line 21 — Add lines 19 and 20
   {
-    pdfFieldName: `${P2}.f2_12[0]`,
+    pdfFieldName: `${P2}.f2_13[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -883,18 +899,18 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 21: Total credits',
   },
 
-  // f2_13: Line 22 — Subtract line 21 from line 18 (tax after credits)
+  // f2_14: Line 22 — Subtract line 21 from line 18 (tax after credits)
   {
-    pdfFieldName: `${P2}.f2_13[0]`,
+    pdfFieldName: `${P2}.f2_14[0]`,
     sourcePath: 'form1040.taxAfterCredits',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 22: Tax after credits',
   },
 
-  // f2_14: Line 23 — Other taxes from Schedule 2, line 21
+  // f2_15: Line 23 — Other taxes from Schedule 2, line 21
   {
-    pdfFieldName: `${P2}.f2_14[0]`,
+    pdfFieldName: `${P2}.f2_15[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -910,9 +926,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 23: Other taxes from Schedule 2',
   },
 
-  // f2_15: Line 24 — Total tax
+  // f2_16: Line 24 — Total tax
   {
-    pdfFieldName: `${P2}.f2_15[0]`,
+    pdfFieldName: `${P2}.f2_16[0]`,
     sourcePath: 'form1040.totalTax',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -921,9 +937,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
 
   // ── Payments Section ──
 
-  // f2_16: Line 25a — Federal income tax withheld from Form(s) W-2
+  // f2_17: Line 25a — Federal income tax withheld from Form(s) W-2
   {
-    pdfFieldName: `${P2}.f2_16[0]`,
+    pdfFieldName: `${P2}.f2_17[0]`,
     sourcePath: 'form1040.w2Withholding',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -940,67 +956,69 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Page 2: SSN',
   },
 
-  // f2_17: Line 25b — Form(s) 1099 withholding
+  // f2_18: Line 25b — Form(s) 1099 withholding
   {
-    pdfFieldName: `${P2}.f2_17[0]`,
+    pdfFieldName: `${P2}.f2_18[0]`,
     sourcePath: 'form1040.form1099Withholding',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 25b: 1099 withholding',
   },
 
-  // f2_18: Line 25c — Other forms withholding (not yet supported)
+  // f2_19: Line 25c — Other forms withholding (not yet supported)
 
-  // f2_19: Line 25d — Total (add lines 25a through 25c)
+  // f2_20: Line 25d — Total (add lines 25a through 25c)
   {
-    pdfFieldName: `${P2}.f2_19[0]`,
+    pdfFieldName: `${P2}.f2_20[0]`,
     sourcePath: 'form1040.totalWithholding',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 25d: Total federal withholding',
   },
 
-  // f2_20: Line 26 — Estimated tax payments
+  // f2_21: Line 26 — Estimated tax payments
   {
-    pdfFieldName: `${P2}.f2_20[0]`,
+    pdfFieldName: `${P2}.f2_21[0]`,
     sourcePath: 'form1040.estimatedPayments',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 26: Estimated tax payments',
   },
 
-  // f2_21: Line 27a — Earned income credit (EIC)
+  // f2_23: Line 27a — Earned income credit (EIC)
+  // (f2_22 is SSN on page 2 header)
   {
-    pdfFieldName: `${P2}.f2_21[0]`,
+    pdfFieldName: `${P2}.f2_23[0]`,
     sourcePath: 'credits.eitcCredit',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 27: Earned income credit (EIC)',
   },
 
-  // f2_23: Line 28 — Additional child tax credit (ACTC) from Schedule 8812
+  // c2_12/c2_13: Line 27/28 checkboxes
+  // f2_24: Line 28 — Additional child tax credit (ACTC) from Schedule 8812
   {
-    pdfFieldName: `${P2}.f2_23[0]`,
+    pdfFieldName: `${P2}.f2_24[0]`,
     sourcePath: 'credits.actcCredit',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 28: Additional child tax credit',
   },
 
-  // f2_24: Line 29 — American opportunity credit from Form 8863, line 8
+  // f2_25: Line 29 — American opportunity credit from Form 8863, line 8
   {
-    pdfFieldName: `${P2}.f2_24[0]`,
+    pdfFieldName: `${P2}.f2_25[0]`,
     sourcePath: 'credits.aotcRefundableCredit',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 29: American opportunity credit',
   },
 
-  // f2_25: Line 30 — Refundable adoption credit from Form 8839
+  // f2_26: Line 30 — Refundable adoption credit from Form 8839
 
-  // f2_26: Line 31 — Amount from Schedule 3, line 15
+  // f2_27: Line 31 — Amount from Schedule 3, line 15
   {
-    pdfFieldName: `${P2}.f2_26[0]`,
+    pdfFieldName: `${P2}.f2_27[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -1014,9 +1032,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 31: Schedule 3 refundable credits',
   },
 
-  // f2_27: Line 32 — Total other payments and refundable credits
+  // f2_28: Line 32 — Total other payments and refundable credits
   {
-    pdfFieldName: `${P2}.f2_27[0]`,
+    pdfFieldName: `${P2}.f2_28[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -1032,18 +1050,18 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 32: Total other payments and refundable credits',
   },
 
-  // f2_28: Line 33 — Total payments
+  // f2_29: Line 33 — Total payments
   {
-    pdfFieldName: `${P2}.f2_28[0]`,
+    pdfFieldName: `${P2}.f2_29[0]`,
     sourcePath: 'form1040.totalPayments',
     source: 'calculationResult',
     format: 'dollarNoCents',
     formLabel: 'Line 33: Total payments',
   },
 
-  // f2_29: Line 34 — Overpaid amount (if line 33 > line 24)
+  // f2_30: Line 34 — Overpaid amount (if line 33 > line 24)
   {
-    pdfFieldName: `${P2}.f2_29[0]`,
+    pdfFieldName: `${P2}.f2_30[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -1054,9 +1072,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 34: Overpayment',
   },
 
-  // f2_30: Line 35a — Refund amount
+  // f2_31: Line 35a — Refund amount
   {
-    pdfFieldName: `${P2}.f2_30[0]`,
+    pdfFieldName: `${P2}.f2_31[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -1069,9 +1087,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
 
   // c2_15: Form 8888 attached checkbox (not used — single account only)
 
-  // f2_31: Line 35b — Routing number
+  // f2_32: Line 35b — Routing number (inside RoutingNo container)
   {
-    pdfFieldName: `${P2}.f2_31[0]`,
+    pdfFieldName: `${P2}.RoutingNo[0].f2_32[0]`,
     sourcePath: '',
     source: 'taxReturn',
     format: 'string',
@@ -1079,9 +1097,9 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 35b: Routing number',
   },
 
-  // f2_32: Line 35c — Account number
+  // f2_33: Line 35c — Account number (inside AccountNo container)
   {
-    pdfFieldName: `${P2}.f2_32[0]`,
+    pdfFieldName: `${P2}.AccountNo[0].f2_33[0]`,
     sourcePath: '',
     source: 'taxReturn',
     format: 'string',
@@ -1109,11 +1127,11 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Direct deposit: Savings',
   },
 
-  // f2_34: Line 36 — Amount applied to next year estimated tax (not yet supported)
+  // f2_35: Line 36 — Amount applied to next year estimated tax (not yet supported)
 
-  // f2_35: Line 37 — Amount you owe
+  // f2_36: Line 37 — Amount you owe
   {
-    pdfFieldName: `${P2}.f2_35[0]`,
+    pdfFieldName: `${P2}.f2_36[0]`,
     sourcePath: '',
     source: 'calculationResult',
     format: 'dollarNoCents',
@@ -1124,9 +1142,10 @@ export const FORM_1040_FIELDS: IRSFieldMapping[] = [
     formLabel: 'Line 37: Amount you owe',
   },
 
-  // f2_36: Line 38 — Estimated tax penalty (Form 2210)
+  // Line 38 — Estimated tax penalty (Form 2210)
+  // Note: field position TBD — may need verification for penalty line
   {
-    pdfFieldName: `${P2}.f2_36[0]`,
+    pdfFieldName: `${P2}.f2_34[0]`,
     sourcePath: 'form1040.estimatedTaxPenalty',
     source: 'calculationResult',
     format: 'dollarNoCents',

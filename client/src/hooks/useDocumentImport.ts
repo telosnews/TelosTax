@@ -199,6 +199,16 @@ export function useDocumentImport(
 
       setEditData({ ...extracted.extractedData });
 
+      // Notify about additional forms detected in consolidated PDFs
+      const extras = extracted.additionalResults || [];
+      const extrasWithValues = extras.filter(r =>
+        Object.values(r.extractedData).some(v => typeof v === 'number' && v > 0),
+      );
+      if (extrasWithValues.length > 0) {
+        const formList = extrasWithValues.map(r => r.formType).join(', ');
+        toast.success(`Also found ${extrasWithValues.length} additional form${extrasWithValues.length > 1 ? 's' : ''} (${formList}) — they will be imported automatically when you confirm.`);
+      }
+
       // Check for duplicates
       if (taxReturn && extracted.incomeType) {
         setDuplicateCheck(checkForDuplicates(taxReturn, extracted.incomeType, extracted.extractedData));
@@ -344,9 +354,33 @@ export function useDocumentImport(
         updateField('incomeDiscovery', discovery);
       }
 
+      // Auto-import additional forms from consolidated multi-form PDFs
+      const extras = result.additionalResults || [];
+      let extraCount = 0;
+      for (const extra of extras) {
+        if (!extra.incomeType) continue;
+        const hasValues = Object.values(extra.extractedData).some(v => typeof v === 'number' && v > 0);
+        if (!hasValues) continue;
+        try {
+          addIncomeItem(returnId, extra.incomeType, extra.extractedData);
+          const dk = INCOME_DISCOVERY_KEYS[extra.incomeType];
+          if (dk) {
+            const disc = { ...taxReturn.incomeDiscovery, [dk]: 'yes' };
+            updateField('incomeDiscovery', disc);
+          }
+          extraCount++;
+        } catch {
+          // Non-fatal — primary import already succeeded
+        }
+      }
+
       setImportedFormType(result.formType || '');
       setState('done');
-      toast.success(`${result.formType} imported successfully`);
+      if (extraCount > 0) {
+        toast.success(`${result.formType} + ${extraCount} additional form${extraCount > 1 ? 's' : ''} imported from consolidated PDF`);
+      } else {
+        toast.success(`${result.formType} imported successfully`);
+      }
       return true;
     } catch (err) {
       toast.error('Import failed');

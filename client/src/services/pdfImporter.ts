@@ -96,6 +96,101 @@ export type { OCRStage } from './ocrService';
 // ─── Shared Processing Logic ──────────────────────
 
 /**
+ * Extract fields for a given form type from text blocks.
+ * Factored out so both primary and additional form spans can use it.
+ */
+function extractFormData(
+  formType: ReturnType<typeof detectFormType>['type'],
+  blocks: TextBlock[],
+): { extractedData: Record<string, unknown>; payerName: string } {
+  let extractedData: Record<string, unknown> = {};
+  let payerName = '';
+  switch (formType) {
+    case 'W-2':
+      extractedData = extractW2Fields(blocks);
+      payerName = (extractedData.employerName as string) || '';
+      break;
+    case '1099-INT':
+      extractedData = extract1099INTFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-DIV':
+      extractedData = extract1099DIVFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-R':
+      extractedData = extract1099RFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-NEC':
+      extractedData = extract1099NECFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-MISC':
+      extractedData = extract1099MISCFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-G':
+      extractedData = extract1099GFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-B':
+      extractedData = extract1099BFields(blocks);
+      payerName = (extractedData.brokerName as string) || '';
+      break;
+    case '1099-K':
+      extractedData = extract1099KFields(blocks);
+      payerName = (extractedData.platformName as string) || '';
+      break;
+    case 'SSA-1099':
+      extractedData = extractSSA1099Fields(blocks);
+      payerName = 'Social Security Administration';
+      break;
+    case '1099-SA':
+      extractedData = extract1099SAFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-Q':
+      extractedData = extract1099QFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1098':
+      extractedData = extract1098Fields(blocks);
+      payerName = (extractedData.lenderName as string) || '';
+      break;
+    case '1098-T':
+      extractedData = extract1098TFields(blocks);
+      payerName = (extractedData.institutionName as string) || '';
+      break;
+    case '1098-E':
+      extractedData = extract1098EFields(blocks);
+      payerName = (extractedData.lenderName as string) || '';
+      break;
+    case '1095-A':
+      extractedData = extract1095AFields(blocks);
+      payerName = (extractedData.marketplaceName as string) || '';
+      break;
+    case 'K-1':
+      extractedData = extractK1Fields(blocks);
+      payerName = (extractedData.entityName as string) || '';
+      break;
+    case 'W-2G':
+      extractedData = extractW2GFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-C':
+      extractedData = extract1099CFields(blocks);
+      payerName = (extractedData.payerName as string) || '';
+      break;
+    case '1099-S':
+      extractedData = extract1099SFields(blocks);
+      payerName = (extractedData.settlementAgent as string) || '';
+      break;
+  }
+  return { extractedData, payerName };
+}
+
+/**
  * Process text blocks through the detection + extraction pipeline.
  * Shared by digital PDF, OCR, and image extraction paths.
  *
@@ -155,14 +250,14 @@ function processTextBlocks(
       );
     }
 
-    // Warn about additional forms found on other pages
+    // Note additional forms found on other pages
     if (spans.length > 1) {
       const others = spans.slice(1).map(s => {
         const label = FORM_TYPE_LABELS[s.type] || s.type;
         const pages = s.startPage === s.endPage ? `page ${s.startPage}` : `pages ${s.startPage}–${s.endPage}`;
         return `${label} (${pages})`;
       });
-      warnings.push(`This PDF also contains: ${others.join(', ')}. Import each form separately for best results.`);
+      warnings.push(`This PDF also contains: ${others.join(', ')}. These forms will also be extracted automatically.`);
     }
 
     pageRangeInfo = {
@@ -200,93 +295,15 @@ function processTextBlocks(
   }
 
   // Extract fields based on form type — using effectiveBlocks (scoped to form pages)
-  let extractedData: Record<string, unknown> = {};
-  let payerName = '';
+  const { extractedData, payerName } = extractFormData(type, effectiveBlocks);
 
-  switch (type) {
-    case 'W-2':
-      extractedData = extractW2Fields(effectiveBlocks);
-      payerName = (extractedData.employerName as string) || '';
-      break;
-    case '1099-INT':
-      extractedData = extract1099INTFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-DIV':
-      extractedData = extract1099DIVFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-R':
-      extractedData = extract1099RFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-NEC':
-      extractedData = extract1099NECFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-MISC':
-      extractedData = extract1099MISCFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-G':
-      extractedData = extract1099GFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-B':
-      extractedData = extract1099BFields(effectiveBlocks);
-      payerName = (extractedData.brokerName as string) || '';
-      warnings.push('PDF import captures summary totals only. For individual transactions, use CSV or TXF import.');
-      break;
-    case '1099-K':
-      extractedData = extract1099KFields(effectiveBlocks);
-      payerName = (extractedData.platformName as string) || '';
-      break;
-    case 'SSA-1099':
-      extractedData = extractSSA1099Fields(effectiveBlocks);
-      payerName = 'Social Security Administration';
-      break;
-    case '1099-SA':
-      extractedData = extract1099SAFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-Q':
-      extractedData = extract1099QFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1098':
-      extractedData = extract1098Fields(effectiveBlocks);
-      payerName = (extractedData.lenderName as string) || '';
-      break;
-    case '1098-T':
-      extractedData = extract1098TFields(effectiveBlocks);
-      payerName = (extractedData.institutionName as string) || '';
-      break;
-    case '1098-E':
-      extractedData = extract1098EFields(effectiveBlocks);
-      payerName = (extractedData.lenderName as string) || '';
-      break;
-    case '1095-A':
-      extractedData = extract1095AFields(effectiveBlocks);
-      payerName = (extractedData.marketplaceName as string) || '';
-      warnings.push('Monthly values may need manual entry. Annual totals are more reliable from OCR.');
-      break;
-    case 'K-1':
-      extractedData = extractK1Fields(effectiveBlocks);
-      payerName = (extractedData.entityName as string) || '';
-      warnings.push('K-1 import captures the 10 most common boxes. Verify for additional entries.');
-      break;
-    case 'W-2G':
-      extractedData = extractW2GFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-C':
-      extractedData = extract1099CFields(effectiveBlocks);
-      payerName = (extractedData.payerName as string) || '';
-      break;
-    case '1099-S':
-      extractedData = extract1099SFields(effectiveBlocks);
-      payerName = (extractedData.settlementAgent as string) || '';
-      break;
+  // Add form-specific warnings
+  if (type === '1099-B') {
+    warnings.push('PDF import captures summary totals only. For individual transactions, use CSV or TXF import.');
+  } else if (type === '1095-A') {
+    warnings.push('Monthly values may need manual entry. Annual totals are more reliable from OCR.');
+  } else if (type === 'K-1') {
+    warnings.push('K-1 import captures the 10 most common boxes. Verify for additional entries.');
   }
 
   // Add warnings for missing important fields
@@ -301,6 +318,48 @@ function processTextBlocks(
     warnings.push('No numeric values were extracted. The PDF layout may not be in a recognized format.');
   }
 
+  // ── Extract additional forms from multi-form PDFs ──
+  // Process each additional form span independently so consolidated brokerage
+  // statements (UBS, Fidelity, etc.) import all forms in one upload.
+  let additionalResults: PDFExtractResult[] | undefined;
+  if (spans.length > 1) {
+    additionalResults = [];
+    for (const span of spans.slice(1)) {
+      const spanBlocks = textBlocks.filter(
+        b => b.page >= span.startPage && b.page <= span.endPage,
+      );
+      const spanData = extractFormData(span.type, spanBlocks);
+      const spanNumericFields = Object.entries(spanData.extractedData).filter(
+        ([, v]) => typeof v === 'number' && v > 0,
+      );
+      const spanWarnings: string[] = [];
+      if (!spanData.payerName) {
+        spanWarnings.push('Could not extract payer/employer name. Please enter it manually.');
+      }
+      if (spanNumericFields.length === 0) {
+        spanWarnings.push('No numeric values were extracted. The PDF layout may not be in a recognized format.');
+      }
+      additionalResults.push({
+        formType: span.type,
+        confidence: span.confidence,
+        extractedData: spanData.extractedData,
+        incomeType: span.incomeType,
+        payerName: spanData.payerName,
+        warnings: spanWarnings,
+        errors: [],
+        textBlockCount: spanBlocks.length,
+        trace: generateImportTrace(span.type, span.confidence, span.matchedKeywords, spanData.extractedData, spanBlocks.length, span.endPage - span.startPage + 1),
+        ocrUsed,
+      });
+    }
+    // Filter out results with zero extracted values (non-form pages)
+    additionalResults = additionalResults.filter(r =>
+      Object.values(r.extractedData).some(v => typeof v === 'number' && v > 0) ||
+      r.formType !== null,
+    );
+    if (additionalResults.length === 0) additionalResults = undefined;
+  }
+
   return {
     formType: type,
     confidence,
@@ -313,6 +372,7 @@ function processTextBlocks(
     trace: generateImportTrace(type, confidence, matchedKeywords, extractedData, effectiveBlocks.length, pagesScanned, pageRangeInfo),
     ocrUsed,
     rawOCRText,
+    additionalResults,
   };
 }
 

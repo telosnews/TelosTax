@@ -276,14 +276,14 @@ describe('importPriorYear1040PDF', () => {
 
     mockPdf([
       { fieldName: `${P1}.f1_47[0]`, fieldValue: '75,000' },
-      { fieldName: `${P1}.f1_69[0]`, fieldValue: '76,500' },
-      { fieldName: `${P1}.f1_71[0]`, fieldValue: '76,500' },
+      { fieldName: `${P1}.f1_73[0]`, fieldValue: '76,500' },
+      { fieldName: `${P1}.f1_75[0]`, fieldValue: '76,500' },
       { fieldName: `${P2}.f2_02[0]`, fieldValue: '14,600' },
       { fieldName: `${P2}.f2_06[0]`, fieldValue: '61,900' },
-      { fieldName: `${P2}.f2_15[0]`, fieldValue: '9,256' },
-      { fieldName: `${P2}.f2_28[0]`, fieldValue: '12,000' },
-      { fieldName: `${P2}.f2_30[0]`, fieldValue: '2,744' },
-      { fieldName: `${P2}.f2_35[0]`, fieldValue: '' },
+      { fieldName: `${P2}.f2_16[0]`, fieldValue: '9,256' },
+      { fieldName: `${P2}.f2_29[0]`, fieldValue: '12,000' },
+      { fieldName: `${P2}.f2_31[0]`, fieldValue: '2,744' },
+      { fieldName: `${P2}.f2_36[0]`, fieldValue: '0' },
     ]);
 
     const file = new File(['fake-pdf'], 'return.pdf', { type: 'application/pdf' });
@@ -305,7 +305,7 @@ describe('importPriorYear1040PDF', () => {
 
   it('detects tax year from header text', async () => {
     mockPdf([
-      { fieldName: 'topmostSubform[0].Page1[0].f1_69[0]', fieldValue: '50000' },
+      { fieldName: 'topmostSubform[0].Page1[0].f1_73[0]', fieldValue: '50000' },
     ], 'Department of the Treasury Form 1040 2023');
 
     const file = new File(['fake-pdf'], 'return.pdf', { type: 'application/pdf' });
@@ -316,8 +316,8 @@ describe('importPriorYear1040PDF', () => {
 
   it('computes effective tax rate', async () => {
     mockPdf([
-      { fieldName: 'topmostSubform[0].Page1[0].f1_69[0]', fieldValue: '100000' },
-      { fieldName: 'topmostSubform[0].Page2[0].f2_15[0]', fieldValue: '15000' },
+      { fieldName: 'topmostSubform[0].Page1[0].f1_73[0]', fieldValue: '100000' },
+      { fieldName: 'topmostSubform[0].Page2[0].f2_16[0]', fieldValue: '15000' },
     ]);
 
     const file = new File(['fake-pdf'], 'return.pdf', { type: 'application/pdf' });
@@ -336,8 +336,8 @@ describe('importPriorYear1040PDF', () => {
 
   it('provides priorYearTax in carryforward suggestions', async () => {
     mockPdf([
-      { fieldName: 'topmostSubform[0].Page1[0].f1_69[0]', fieldValue: '80000' },
-      { fieldName: 'topmostSubform[0].Page2[0].f2_15[0]', fieldValue: '10500' },
+      { fieldName: 'topmostSubform[0].Page1[0].f1_73[0]', fieldValue: '80000' },
+      { fieldName: 'topmostSubform[0].Page2[0].f2_16[0]', fieldValue: '10500' },
     ]);
 
     const file = new File(['fake-pdf'], 'return.pdf', { type: 'application/pdf' });
@@ -382,8 +382,8 @@ describe('importPriorYear1040PDF', () => {
 
   it('handles dollar signs and commas in field values', async () => {
     mockPdf([
-      { fieldName: 'topmostSubform[0].Page1[0].f1_69[0]', fieldValue: '$125,450' },
-      { fieldName: 'topmostSubform[0].Page2[0].f2_15[0]', fieldValue: '$18,234' },
+      { fieldName: 'topmostSubform[0].Page1[0].f1_73[0]', fieldValue: '$125,450' },
+      { fieldName: 'topmostSubform[0].Page2[0].f2_16[0]', fieldValue: '$18,234' },
     ]);
 
     const file = new File(['fake-pdf'], 'return.pdf', { type: 'application/pdf' });
@@ -401,8 +401,8 @@ describe('importPriorYear1040PDF', () => {
 
   it('warns when importing a current-year PDF', async () => {
     mockPdf([
-      { fieldName: 'topmostSubform[0].Page1[0].f1_69[0]', fieldValue: '50000' },
-      { fieldName: 'topmostSubform[0].Page2[0].f2_15[0]', fieldValue: '7500' },
+      { fieldName: 'topmostSubform[0].Page1[0].f1_73[0]', fieldValue: '50000' },
+      { fieldName: 'topmostSubform[0].Page2[0].f2_16[0]', fieldValue: '7500' },
     ], 'Form 1040 (2025)');
 
     const file = new File(['fake-pdf'], 'return.pdf', { type: 'application/pdf' });

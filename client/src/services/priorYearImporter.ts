@@ -46,23 +46,27 @@ const P2 = 'topmostSubform[0].Page2[0]';
 const L4_11 = `${P1}.Line4a-11_ReadOrder[0]`;
 
 // 2025 field names (from irsForm1040Map.ts — f1040.pdf 2025 edition)
+// The 2025 form added f1_47–f1_57 for Lines 1a–1z sub-items, and intermediate
+// fields f1_64 (Line 4c QCD), f1_67 (Line 5c PSO), f1_71 (Line 7b) that shift
+// all downstream income fields. Page 2 has f2_07 (Line 16 "3" field) that shifts
+// all downstream tax/payment fields by 1.
 export const FORM_1040_EXTRACT_FIELDS = {
   wages:          `${P1}.f1_47[0]`,   // Line 1a — Total wages
-  interest:       `${P1}.f1_58[0]`,   // Line 2b — Taxable interest
-  dividends:      `${P1}.f1_60[0]`,   // Line 3b — Ordinary dividends
-  iraDistrib:     `${P1}.f1_62[0]`,   // Line 4b — IRA distributions (taxable)
-  pensions:       `${P1}.f1_64[0]`,   // Line 5b — Pensions and annuities (taxable)
-  socialSecurity: `${P1}.f1_66[0]`,   // Line 6b — Social Security benefits (taxable)
-  capitalGain:    `${P1}.f1_67[0]`,   // Line 7  — Capital gain or (loss)
-  totalIncome:    `${P1}.f1_69[0]`,   // Line 9  — Total income
-  agi:            `${P1}.f1_71[0]`,   // Line 11a — AGI
+  interest:       `${P1}.f1_59[0]`,   // Line 2b — Taxable interest
+  dividends:      `${P1}.f1_61[0]`,   // Line 3b — Ordinary dividends
+  iraDistrib:     `${P1}.f1_63[0]`,   // Line 4b — IRA distributions (taxable)
+  pensions:       `${P1}.f1_66[0]`,   // Line 5b — Pensions and annuities (taxable)
+  socialSecurity: `${P1}.f1_69[0]`,   // Line 6b — Social Security benefits (taxable)
+  capitalGain:    `${P1}.f1_70[0]`,   // Line 7a — Capital gain or (loss)
+  totalIncome:    `${P1}.f1_73[0]`,   // Line 9  — Total income
+  agi:            `${P1}.f1_75[0]`,   // Line 11a — AGI
   deduction:      `${P2}.f2_02[0]`,   // Line 12e — Standard/Itemized deduction
   taxableIncome:  `${P2}.f2_06[0]`,   // Line 15 — Taxable income
-  totalTax:       `${P2}.f2_15[0]`,   // Line 24 — Total tax
-  estimatedPmts:  `${P2}.f2_24[0]`,   // Line 26 — Estimated tax payments
-  totalPayments:  `${P2}.f2_28[0]`,   // Line 33 — Total payments
-  refund:         `${P2}.f2_30[0]`,   // Line 35a — Refund
-  amountOwed:     `${P2}.f2_35[0]`,   // Line 37 — Amount owed
+  totalTax:       `${P2}.f2_16[0]`,   // Line 24 — Total tax
+  estimatedPmts:  `${P2}.f2_25[0]`,   // Line 26 — Estimated tax payments
+  totalPayments:  `${P2}.f2_29[0]`,   // Line 33 — Total payments
+  refund:         `${P2}.f2_31[0]`,   // Line 35a — Refund
+  amountOwed:     `${P2}.f2_36[0]`,   // Line 37 — Amount owed
 } as const;
 
 // 2024 field names (from f1040-2024.pdf — different numbering)

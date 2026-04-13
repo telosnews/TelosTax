@@ -115,6 +115,7 @@ export const WIZARD_STEPS: WizardStep[] = [
   // My Info
   { id: 'welcome', label: 'Welcome', section: 'my_info' },
   { id: 'personal_info', label: 'Personal Info', section: 'my_info' },
+  { id: 'import_data', label: 'Import Data', section: 'my_info' },
   { id: 'encryption_setup', label: 'Protect Your Data', section: 'my_info', condition: () => !isEncryptionSetup() },
   { id: 'filing_status', label: 'Filing Status', section: 'my_info' },
   { id: 'dependents', label: 'Dependents', section: 'my_info' },
@@ -122,7 +123,6 @@ export const WIZARD_STEPS: WizardStep[] = [
   // Income — ordered to match IncomeOverviewStep groups
   { id: 'transition_income', label: 'Getting Started', section: 'income' },
   { id: 'income_overview', label: 'Income Overview', section: 'income' },
-  { id: 'import_data', label: 'Import Data', section: 'income' },
   // Wages & Employment
   { id: 'w2_income', label: 'Employment (W-2)', section: 'income', condition: (tr) => tr.incomeDiscovery['w2'] === 'yes', declarativeCondition: dcDiscovery('w2') },
   // Self-Employment & Freelance
